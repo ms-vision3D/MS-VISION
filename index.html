@@ -313,16 +313,17 @@
   }
   .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    grid-template-columns: 1fr 1.22fr 1fr;
+    gap: 10px;
     width: 100%;
     max-width: 1180px;
   }
-  .col { display: grid; gap: 8px; }
+  .col { display: grid; gap: 10px; }
   /* Colonnes latérales : 4:5 / 16:9 / 4:5 */
   .col-lr { grid-template-rows: 1.25fr 0.5625fr 1.25fr; }
-  /* Colonne centre : 4:5 / logo / 4:5 */
-  .col-mid { grid-template-rows: 1.25fr 0.5625fr 1.25fr; }
+  /* Colonne centre : photos 4:5 réelles + logo fin au milieu */
+  .col-mid { grid-template-rows: auto auto auto; align-content: stretch; }
+  .col-mid .p { aspect-ratio: 4 / 5; }
 
   .p {
     overflow: hidden;
