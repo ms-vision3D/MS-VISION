@@ -343,29 +343,30 @@
   }
   .p-logo img { height: 26px; width: auto; }
 
-  /* LIGHTBOX */
+  /* LIGHTBOX — animation depuis l'emplacement d'origine */
   .lightbox {
-    display: none;
     position: fixed;
     inset: 0;
     z-index: 500;
+    background: rgba(0,0,0,0);
+    pointer-events: none;
+    transition: background 0.2s ease;
+  }
+  .lightbox.open {
     background: rgba(0,0,0,0.96);
-    align-items: center;
-    justify-content: center;
+    pointer-events: auto;
     cursor: zoom-out;
-    opacity: 0;
-    transition: opacity 0.25s ease;
   }
-  .lightbox.open { display: flex; opacity: 1; }
   .lightbox img {
-    max-width: 92vw;
-    max-height: 92vh;
-    object-fit: contain;
+    position: absolute;
+    object-fit: cover;
     display: block;
-    transform: scale(0.92);
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, width, height, top, left;
+    transition: top 0.2s cubic-bezier(0.4,0,0.2,1),
+                left 0.2s cubic-bezier(0.4,0,0.2,1),
+                width 0.2s cubic-bezier(0.4,0,0.2,1),
+                height 0.2s cubic-bezier(0.4,0,0.2,1);
   }
-  .lightbox.open img { transform: scale(1); }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 760px) {
@@ -415,23 +416,23 @@
 
       <!-- COLONNE GAUCHE -->
       <div class="col col-lr">
-        <div class="p" onclick="zoom('upleft.jpg')"><img src="upleft.jpg" alt=""></div>
-        <div class="p" onclick="zoom('left.jpg')"><img src="left.jpg" alt=""></div>
-        <div class="p" onclick="zoom('downleft.jpg')"><img src="downleft.jpg" alt=""></div>
+        <div class="p" onclick="zoom('upleft.jpg', this)"><img src="upleft.jpg" alt=""></div>
+        <div class="p" onclick="zoom('left.jpg', this)"><img src="left.jpg" alt=""></div>
+        <div class="p" onclick="zoom('downleft.jpg', this)"><img src="downleft.jpg" alt=""></div>
       </div>
 
       <!-- COLONNE CENTRE -->
       <div class="col col-mid">
-        <div class="p" onclick="zoom('up.jpg')"><img src="up.jpg" alt=""></div>
+        <div class="p" onclick="zoom('up.jpg', this)"><img src="up.jpg" alt=""></div>
         <div class="p-logo"><img src="ms-visionALPHA.png" alt="MS VISION"></div>
-        <div class="p" onclick="zoom('down.jpg')"><img src="down.jpg" alt=""></div>
+        <div class="p" onclick="zoom('down.jpg', this)"><img src="down.jpg" alt=""></div>
       </div>
 
       <!-- COLONNE DROITE -->
       <div class="col col-lr">
-        <div class="p" onclick="zoom('upright.jpg')"><img src="upright.jpg" alt=""></div>
-        <div class="p" onclick="zoom('right.jpg')"><img src="right.jpg" alt=""></div>
-        <div class="p" onclick="zoom('downright.jpg')"><img src="downright.jpg" alt=""></div>
+        <div class="p" onclick="zoom('upright.jpg', this)"><img src="upright.jpg" alt=""></div>
+        <div class="p" onclick="zoom('right.jpg', this)"><img src="right.jpg" alt=""></div>
+        <div class="p" onclick="zoom('downright.jpg', this)"><img src="downright.jpg" alt=""></div>
       </div>
 
     </div>
@@ -481,12 +482,55 @@
 </div>
 
 <script>
-  function zoom(src) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox').classList.add('open');
+  var lbState = { open: false };
+
+  function zoom(src, el) {
+    var lb = document.getElementById('lightbox');
+    var img = document.getElementById('lightbox-img');
+    var rect = el.getBoundingClientRect();
+
+    // Position de départ = emplacement exact de la photo cliquée
+    img.src = src;
+    img.style.transition = 'none';
+    img.style.top = rect.top + 'px';
+    img.style.left = rect.left + 'px';
+    img.style.width = rect.width + 'px';
+    img.style.height = rect.height + 'px';
+
+    lb.classList.add('open');
+
+    // Calcul de la position plein écran (en gardant le ratio, max 92%)
+    requestAnimationFrame(function () {
+      img.style.transition = '';
+      var nw = img.naturalWidth, nh = img.naturalHeight;
+      var maxW = window.innerWidth * 0.92, maxH = window.innerHeight * 0.92;
+      var scale = Math.min(maxW / nw, maxH / nh);
+      var fw = nw * scale, fh = nh * scale;
+      img.style.top = (window.innerHeight - fh) / 2 + 'px';
+      img.style.left = (window.innerWidth - fw) / 2 + 'px';
+      img.style.width = fw + 'px';
+      img.style.height = fh + 'px';
+    });
+
+    lbState.open = true;
+    lbState.el = el;
   }
+
   function closeZoom() {
-    document.getElementById('lightbox').classList.remove('open');
+    var lb = document.getElementById('lightbox');
+    var img = document.getElementById('lightbox-img');
+    if (!lbState.el) { lb.classList.remove('open'); return; }
+    var rect = lbState.el.getBoundingClientRect();
+    img.style.top = rect.top + 'px';
+    img.style.left = rect.left + 'px';
+    img.style.width = rect.width + 'px';
+    img.style.height = rect.height + 'px';
+    lb.style.background = 'rgba(0,0,0,0)';
+    setTimeout(function () {
+      lb.classList.remove('open');
+      lb.style.background = '';
+    }, 200);
+    lbState.open = false;
   }
 
   window.addEventListener('load', function () {
@@ -494,7 +538,7 @@
       document.getElementById('intro').classList.add('done');
       document.getElementById('navbar').classList.add('show');
       document.getElementById('content').classList.add('show');
-    }, 2200);
+    }, 1500);
   });
 
   document.querySelectorAll('.lang span').forEach(function (s) {
