@@ -304,6 +304,27 @@
   .socials a:hover { color: var(--white); }
   .socials svg { width: 22px; height: 22px; }
 
+  /* ============ PORTFOLIO GRID ============ */
+  .portfolio { padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 56px); }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: 8px;
+  }
+  .col-side { display: flex; flex-direction: column; gap: 8px; }
+  .col-center { display: flex; flex-direction: column; }
+  .p-cell { overflow: hidden; flex: 1; }
+  .col-side .p-cell { aspect-ratio: 4/5; }
+  .p-cell img, .p-tall img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+  .p-cell:hover img, .p-tall:hover img { transform: scale(1.04); }
+  .p-tall { overflow: hidden; flex: 1; }
+  .p-logo {
+    padding: 16px 0;
+    display: flex; align-items: center; justify-content: center;
+    background: #080808;
+  }
+  .p-logo img { height: 24px; }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width: 760px) {
     .row { grid-template-columns: 1fr; gap: 28px; }
@@ -347,53 +368,29 @@
     <p>MS VISION accompagne architectes et promoteurs dans la valorisation de leurs projets. Des rendus 3D photoréalistes pensés pour convaincre, séduire et vendre.</p>
   </section>
 
-  <div class="book">
+  <section class="portfolio">
+    <div class="portfolio-grid">
 
-    <div class="row">
-      <div class="txt">
-        <div class="row-num">01 — Résidentiel</div>
-        <h2>Chalet Alpin</h2>
-        <p>Une réinterprétation contemporaine du chalet de montagne. Lignes épurées, matériaux nobles, intégration parfaite dans le paysage hivernal.</p>
+      <div class="col-side">
+        <div class="p-cell"><img src="upleft.jpg" alt="Charpente alpine"></div>
+        <div class="p-cell"><img src="left.jpg" alt="Chambre chalet"></div>
+        <div class="p-cell"><img src="downleft.jpg" alt="Piscine intérieure"></div>
       </div>
-      <div class="photo">
-        <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=900&q=80" alt="Projet 1">
+
+      <div class="col-center">
+        <div class="p-tall"><img src="up.jpg" alt="Chalet de nuit"></div>
+        <div class="p-logo"><img src="ms-visionALPHA.png" alt="MS VISION"></div>
+        <div class="p-tall"><img src="down.jpg" alt="Vue aérienne"></div>
       </div>
+
+      <div class="col-side">
+        <div class="p-cell"><img src="upright.jpg" alt="Charpente détail"></div>
+        <div class="p-cell"><img src="right.jpg" alt="Salon chalet"></div>
+        <div class="p-cell"><img src="downright.jpg" alt="Salon panoramique"></div>
+      </div>
+
     </div>
-
-    <div class="row text-right">
-      <div class="photo">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" alt="Projet 2">
-      </div>
-      <div class="txt">
-        <div class="row-num">02 — Luxe</div>
-        <h2>Villa Prestige</h2>
-        <p>Un écrin de verre et de pierre face aux sommets. La lumière du crépuscule sublime chaque volume, chaque détail architectural.</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="txt">
-        <div class="row-num">03 — Promotion</div>
-        <h2>Résidence<br>Les Cimes</h2>
-        <p>Programme immobilier haut de gamme. Chaque appartement bénéficie d'une vue panoramique et d'une lumière naturelle maîtrisée.</p>
-      </div>
-      <div class="photo">
-        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80" alt="Projet 3">
-      </div>
-    </div>
-
-    <div class="row text-right">
-      <div class="photo">
-        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=900&q=80" alt="Projet 4">
-      </div>
-      <div class="txt">
-        <div class="row-num">04 — Intérieur</div>
-        <h2>Suite<br>Contemporaine</h2>
-        <p>L'art de mettre en scène l'espace intérieur. Ambiances, matériaux et éclairages composent une atmosphère à la fois chaleureuse et raffinée.</p>
-      </div>
-    </div>
-
-  </div>
+  </section>
 
   <section class="contact" id="contact">
     <h2 class="contact-head">Travaillons<br>ensemble</h2>
