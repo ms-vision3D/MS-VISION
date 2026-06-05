@@ -367,6 +367,7 @@
                 width 0.2s cubic-bezier(0.4,0,0.2,1),
                 height 0.2s cubic-bezier(0.4,0,0.2,1);
   }
+  .lightbox:not(.open) img { visibility: hidden; }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 760px) {
@@ -529,6 +530,14 @@
     setTimeout(function () {
       lb.classList.remove('open');
       lb.style.background = '';
+      // Réinitialisation complète pour éviter que l'image reste affichée
+      img.style.transition = 'none';
+      img.removeAttribute('src');
+      img.style.top = '';
+      img.style.left = '';
+      img.style.width = '';
+      img.style.height = '';
+      lbState.el = null;
     }, 200);
     lbState.open = false;
   }
