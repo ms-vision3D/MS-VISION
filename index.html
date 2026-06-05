@@ -305,59 +305,42 @@
   .socials svg { width: 22px; height: 22px; }
 
   /* ============ PORTFOLIO GRID ============ */
-  .portfolio { padding: clamp(20px, 4vw, 56px); }
-
+  .portfolio {
+    padding: clamp(16px, 3vw, 40px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .portfolio-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 6px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 1180px;
   }
+  .col { display: grid; gap: 8px; }
+  /* Colonnes latérales : 4:5 / 16:9 / 4:5 */
+  .col-lr { grid-template-rows: 1.25fr 0.5625fr 1.25fr; }
+  /* Colonne centre : 4:5 / logo / 4:5 */
+  .col-mid { grid-template-rows: 1.25fr 0.5625fr 1.25fr; }
 
-  /* Colonne gauche et droite : 3 photos 4:5 empilées */
-  .col-side {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .p-cell {
-    aspect-ratio: 4 / 5;
+  .p {
     overflow: hidden;
     cursor: pointer;
+    background: #000;
   }
-  .p-cell img {
+  .p img {
     width: 100%; height: 100%;
     object-fit: cover; display: block;
-    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .p-cell:hover img { transform: scale(1.04); }
+  .p:hover img { transform: scale(1.04); }
 
-  /* Colonne centre : photo 16:9 + logo + photo 16:9 */
-  .col-center {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .p-wide {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    cursor: pointer;
-  }
-  .p-wide img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-    background: #000;
-    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .p-wide:hover img { transform: scale(1.04); }
   .p-logo {
-    padding: 14px 0;
     display: flex; align-items: center; justify-content: center;
-    background: #080808;
+    background: #000;
   }
-  .p-logo img { height: 22px; }
+  .p-logo img { height: 26px; width: auto; }
 
   /* LIGHTBOX */
   .lightbox {
@@ -365,18 +348,23 @@
     position: fixed;
     inset: 0;
     z-index: 500;
-    background: rgba(0,0,0,0.95);
+    background: rgba(0,0,0,0.96);
     align-items: center;
     justify-content: center;
     cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.25s ease;
   }
-  .lightbox.open { display: flex; }
+  .lightbox.open { display: flex; opacity: 1; }
   .lightbox img {
     max-width: 92vw;
     max-height: 92vh;
     object-fit: contain;
     display: block;
+    transform: scale(0.92);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   }
+  .lightbox.open img { transform: scale(1); }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 760px) {
@@ -424,32 +412,31 @@
   <section class="portfolio">
     <div class="portfolio-grid">
 
-      <!-- COLONNE GAUCHE : 3x 4:5 -->
-      <div class="col-side">
-        <div class="p-cell" onclick="openLightbox('upleft.jpg')"><img src="upleft.jpg" alt="Portfolio 1"></div>
-        <div class="p-cell" onclick="openLightbox('left.jpg')"><img src="left.jpg" alt="Portfolio 2"></div>
-        <div class="p-cell" onclick="openLightbox('downleft.jpg')"><img src="downleft.jpg" alt="Portfolio 3"></div>
+      <!-- COLONNE GAUCHE -->
+      <div class="col col-lr">
+        <div class="p" onclick="zoom('upleft.jpg')"><img src="upleft.jpg" alt=""></div>
+        <div class="p" onclick="zoom('left.jpg')"><img src="left.jpg" alt=""></div>
+        <div class="p" onclick="zoom('downleft.jpg')"><img src="downleft.jpg" alt=""></div>
       </div>
 
-      <!-- COLONNE CENTRE : 16:9 + logo + 16:9 -->
-      <div class="col-center">
-        <div class="p-wide" onclick="openLightbox('up.jpg')"><img src="up.jpg" alt="Portfolio centre haut"></div>
+      <!-- COLONNE CENTRE -->
+      <div class="col col-mid">
+        <div class="p" onclick="zoom('up.jpg')"><img src="up.jpg" alt=""></div>
         <div class="p-logo"><img src="ms-visionALPHA.png" alt="MS VISION"></div>
-        <div class="p-wide" onclick="openLightbox('down.jpg')"><img src="down.jpg" alt="Portfolio centre bas"></div>
+        <div class="p" onclick="zoom('down.jpg')"><img src="down.jpg" alt=""></div>
       </div>
 
-      <!-- COLONNE DROITE : 3x 4:5 -->
-      <div class="col-side">
-        <div class="p-cell" onclick="openLightbox('upright.jpg')"><img src="upright.jpg" alt="Portfolio 4"></div>
-        <div class="p-cell" onclick="openLightbox('right.jpg')"><img src="right.jpg" alt="Portfolio 5"></div>
-        <div class="p-cell" onclick="openLightbox('downright.jpg')"><img src="downright.jpg" alt="Portfolio 6"></div>
+      <!-- COLONNE DROITE -->
+      <div class="col col-lr">
+        <div class="p" onclick="zoom('upright.jpg')"><img src="upright.jpg" alt=""></div>
+        <div class="p" onclick="zoom('right.jpg')"><img src="right.jpg" alt=""></div>
+        <div class="p" onclick="zoom('downright.jpg')"><img src="downright.jpg" alt=""></div>
       </div>
 
     </div>
   </section>
 
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox" id="lightbox" onclick="closeZoom()">
     <img id="lightbox-img" src="" alt="">
   </div>
 
@@ -493,13 +480,12 @@
 </div>
 
 <script>
-  function openLightbox(src) {
+  function zoom(src) {
     document.getElementById('lightbox-img').src = src;
     document.getElementById('lightbox').classList.add('open');
   }
-  function closeLightbox() {
+  function closeZoom() {
     document.getElementById('lightbox').classList.remove('open');
-    document.getElementById('lightbox-img').src = '';
   }
 
   window.addEventListener('load', function () {
