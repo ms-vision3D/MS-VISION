@@ -554,14 +554,13 @@
     </div>
     <div class="pano-wrap">
       <div id="pano-placeholder-impl" class="pano-placeholder" onclick="loadImpl()">
-        <div class="pano-preview" style="background-image: url('360implantation.jpg');"></div>
+        <div class="pano-preview" style="background-image: url('360implantation-preview.jpg'); background-position: center;"></div>
         <div class="pano-play-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
         </div>
         <p class="pano-play-label">Visualiser l'implantation dans son contexte</p>
       </div>
       <div id="panorama-impl" class="pano-viewer" style="display:none;"></div>
-      <button class="pano-fs-btn" id="pano-fs-btn-impl" style="display:none;" onclick="toggleImplFS()">Plein écran</button>
     </div>
   </section>
 
@@ -580,7 +579,6 @@
         <p class="pano-play-label">Explorer le chalet en immersif</p>
       </div>
       <div id="panorama-tour" class="pano-viewer" style="display:none;"></div>
-      <button class="pano-fs-btn" id="pano-fs-btn-tour" style="display:none;" onclick="toggleTourFS()">Plein écran</button>
     </div>
   </section>
 
@@ -633,22 +631,14 @@
   function loadImpl() {
     document.getElementById('pano-placeholder-impl').style.display = 'none';
     document.getElementById('panorama-impl').style.display = 'block';
-    document.getElementById('pano-fs-btn-impl').style.display = 'block';
     window._initImpl();
-  }
-  function toggleImplFS() {
-    if (window.implViewer) window.implViewer.toggleFullscreen();
   }
 
   // ===== VISITE VIRTUELLE =====
   function loadTour() {
     document.getElementById('pano-placeholder-tour').style.display = 'none';
     document.getElementById('panorama-tour').style.display = 'block';
-    document.getElementById('pano-fs-btn-tour').style.display = 'block';
     window._initTour();
-  }
-  function toggleTourFS() {
-    if (window.tourViewer) window.tourViewer.toggleFullscreen();
   }
 
   // ===== QUITTER PLEIN ÉCRAN =====
