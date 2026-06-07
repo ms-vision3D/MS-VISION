@@ -391,6 +391,27 @@
     overflow: hidden;
   }
   #panorama { width: 100%; height: 100%; }
+  #pano-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+    background: #080808;
+    gap: 16px;
+    transition: background 0.3s;
+  }
+  #pano-placeholder:hover { background: #0f0f0f; }
+  .pano-play-icon svg {
+    width: 64px; height: 64px;
+    stroke: rgba(244,245,247,0.5);
+    color: rgba(244,245,247,0.5);
+  }
+  .pano-play-label {
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(244,245,247,0.5);
+  }
   .pano-fs-btn {
     position: absolute;
     bottom: 16px; right: 16px;
@@ -488,9 +509,15 @@
       <p class="pano-badge">Visite immersive</p>
       <h2 class="pano-title">Implantation<br>panoramique 360°</h2>
     </div>
-    <div class="pano-wrap">
-      <div id="panorama"></div>
-      <button class="pano-fs-btn" onclick="togglePanoFS()">Plein écran</button>
+    <div class="pano-wrap" id="pano-wrap">
+      <div id="pano-placeholder" onclick="loadPano()">
+        <div class="pano-play-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <p class="pano-play-label">Lancer la visite 360°</p>
+      </div>
+      <div id="panorama" style="display:none; width:100%; height:100%;"></div>
+      <button class="pano-fs-btn" id="pano-fs-btn" style="display:none;" onclick="togglePanoFS()">Plein écran</button>
     </div>
   </section>
 
@@ -536,29 +563,36 @@
 <script>
   var lbState = { open: false };
 
-  // ===== VISITE 360 — Pannellum =====
-  var panoViewer = pannellum.viewer('panorama', {
-    type: 'equirectangular',
-    panorama: '360implantation.jpg',
-    autoLoad: true,
-    showControls: false,
-    showZoomCtrl: false,
-    showFullscreenCtrl: false,
-    hfov: 100,        // champ de vision initial
-    minHfov: 50,      // zoom max (plus petit = plus zoomé)
-    maxHfov: 120,     // dézoom max
-    autoRotate: -2,   // légère rotation auto au départ
-    compass: false,
-    mouseZoom: true,
-    draggable: true
-  });
+  // ===== VISITE 360 — chargement à la demande =====
+  var panoViewer = null;
 
-  // Stoppe la rotation auto dès que l'utilisateur interagit
-  panoViewer.on('mousedown', function () { panoViewer.stopAutoRotate(); });
-  panoViewer.on('touchstart', function () { panoViewer.stopAutoRotate(); });
+  function loadPano() {
+    document.getElementById('pano-placeholder').style.display = 'none';
+    document.getElementById('panorama').style.display = 'block';
+    document.getElementById('pano-fs-btn').style.display = 'block';
+
+    panoViewer = pannellum.viewer('panorama', {
+      type: 'equirectangular',
+      panorama: '360implantation.jpg',
+      autoLoad: true,
+      showControls: false,
+      showZoomCtrl: false,
+      showFullscreenCtrl: false,
+      hfov: 100,
+      minHfov: 50,
+      maxHfov: 120,
+      autoRotate: -2,
+      compass: false,
+      mouseZoom: true,
+      draggable: true
+    });
+
+    panoViewer.on('mousedown', function () { panoViewer.stopAutoRotate(); });
+    panoViewer.on('touchstart', function () { panoViewer.stopAutoRotate(); });
+  }
 
   function togglePanoFS() {
-    panoViewer.toggleFullscreen();
+    if (panoViewer) panoViewer.toggleFullscreen();
   }
 
   function zoom(src, el) {
