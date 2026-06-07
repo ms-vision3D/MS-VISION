@@ -700,6 +700,8 @@
     window.implViewer = new Viewer({
       container: 'panorama-impl',
       panorama: '360implantation.jpg',
+      defaultYaw: 3.1416,
+      defaultPitch: 0,
       defaultZoomLvl: 50,
       minFov: 30,
       maxFov: 90,
@@ -725,7 +727,7 @@
       touchmoveTwoFingers: false,
       plugins: [
         [VirtualTourPlugin, {
-          renderMode: 'markers',
+          renderMode: '3d',
           nodes: [
             {
               id: 'salon',
