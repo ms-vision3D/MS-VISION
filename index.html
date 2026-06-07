@@ -7,8 +7,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Archivo+Narrow:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
-<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.167/build/three.module.js",
+      "@photo-sphere-viewer/core": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.module.js"
+    }
+  }
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.css">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -367,8 +374,11 @@
   /* ============ VISITE 360 ============ */
   .pano-section {
     padding: clamp(40px, 7vw, 100px) clamp(20px, 4vw, 56px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .pano-head { margin-bottom: 40px; }
+  .pano-head { margin-bottom: 40px; width: 50%; min-width: 320px; }
   .pano-badge {
     font-family: var(--font-display);
     font-size: 11px; font-weight: 600; letter-spacing: 4px;
@@ -378,15 +388,16 @@
   .pano-title {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(28px, 4vw, 52px);
+    font-size: clamp(22px, 3vw, 40px);
     line-height: 1.05;
     text-transform: uppercase;
     letter-spacing: -0.5px;
   }
   .pano-wrap {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 5;
+    width: 50%;
+    min-width: 320px;
+    aspect-ratio: 16 / 9;
     background: #000;
     overflow: hidden;
   }
@@ -400,36 +411,37 @@
     gap: 16px;
     transition: background 0.3s;
   }
-  #pano-placeholder:hover { background: #0f0f0f; }
+  #pano-placeholder:hover { background: #111; }
   .pano-play-icon svg {
-    width: 64px; height: 64px;
+    width: 52px; height: 52px;
     stroke: rgba(244,245,247,0.5);
     color: rgba(244,245,247,0.5);
   }
   .pano-play-label {
     font-family: var(--font-display);
-    font-size: 13px; font-weight: 500;
+    font-size: 11px; font-weight: 500;
     letter-spacing: 3px; text-transform: uppercase;
-    color: rgba(244,245,247,0.5);
+    color: rgba(244,245,247,0.4);
   }
   .pano-fs-btn {
     position: absolute;
-    bottom: 16px; right: 16px;
+    bottom: 12px; right: 12px;
     z-index: 20;
     background: rgba(6,14,26,0.8);
     backdrop-filter: blur(8px);
     border: 1px solid var(--line);
     color: var(--white);
-    padding: 10px 18px;
+    padding: 8px 14px;
     font-family: var(--font-display);
-    font-size: 11px; font-weight: 500; letter-spacing: 2px;
+    font-size: 10px; font-weight: 500; letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
     transition: background 0.3s;
   }
   .pano-fs-btn:hover { background: rgba(17,33,56,0.95); }
   @media (max-width: 760px) {
-    .pano-wrap { aspect-ratio: 4 / 3; }
+    .pano-wrap { width: 100%; aspect-ratio: 4 / 3; }
+    .pano-head { width: 100%; }
   }
 
   /* ============ RESPONSIVE ============ */
@@ -570,28 +582,11 @@
     document.getElementById('pano-placeholder').style.display = 'none';
     document.getElementById('panorama').style.display = 'block';
     document.getElementById('pano-fs-btn').style.display = 'block';
-
-    panoViewer = pannellum.viewer('panorama', {
-      type: 'equirectangular',
-      panorama: '360implantation.jpg',
-      autoLoad: true,
-      showControls: false,
-      showZoomCtrl: false,
-      showFullscreenCtrl: false,
-      hfov: 100,
-      minHfov: 50,
-      maxHfov: 120,
-      autoRotate: 0,
-      compass: false,
-      mouseZoom: true,
-      draggable: true,
-      friction: 0.15
-    });
-
+    window._initPSV();
   }
 
   function togglePanoFS() {
-    if (panoViewer) panoViewer.toggleFullscreen();
+    if (window.panoViewer) window.panoViewer.toggleFullscreen();
   }
 
   function zoom(src, el) {
@@ -666,6 +661,26 @@
     });
   });
 
+</script>
+<script type="module">
+  import { Viewer } from '@photo-sphere-viewer/core';
+
+  window._initPSV = function () {
+    window.panoViewer = new Viewer({
+      container: 'panorama',
+      panorama: '360implantation.jpg',
+      defaultZoomLvl: 50,
+      minFov: 30,
+      maxFov: 90,
+      navbar: false,
+      loadingTxt: '',
+      touchmoveTwoFingers: false,
+      mousewheelCtrlKey: false,
+      moveInertia: true,
+      zoomSpeed: 1,
+      moveSpeed: 0.8
+    });
+  };
 </script>
 
 </body>
