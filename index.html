@@ -409,21 +409,34 @@
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     cursor: pointer;
-    background: #080808;
     gap: 16px;
-    transition: background 0.3s;
+    transition: opacity 0.3s;
+    overflow: hidden;
   }
-  .pano-placeholder:hover { background: #111; }
+  .pano-placeholder:hover { opacity: 0.85; }
+  .pano-preview {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(6px) brightness(0.5);
+    transform: scale(1.08);
+  }
+  .pano-play-icon {
+    position: relative; z-index: 2;
+  }
   .pano-play-icon svg {
     width: 52px; height: 52px;
-    stroke: rgba(244,245,247,0.5);
-    color: rgba(244,245,247,0.5);
+    stroke: rgba(244,245,247,0.85);
+    color: rgba(244,245,247,0.85);
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
   }
   .pano-play-label {
+    position: relative; z-index: 2;
     font-family: var(--font-display);
     font-size: 11px; font-weight: 500;
     letter-spacing: 3px; text-transform: uppercase;
-    color: rgba(244,245,247,0.4);
+    color: rgba(244,245,247,0.8);
+    text-shadow: 0 1px 6px rgba(0,0,0,0.8);
   }
   .pano-fs-btn {
     position: absolute;
@@ -441,6 +454,21 @@
     transition: background 0.3s;
   }
   .pano-fs-btn:hover { background: rgba(17,33,56,0.95); }
+  .pano-exit-fs {
+    position: fixed;
+    top: 16px; right: 16px;
+    z-index: 9999;
+    display: none;
+    background: rgba(6,14,26,0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    color: var(--white);
+    padding: 10px 18px;
+    font-family: var(--font-display);
+    font-size: 10px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
   @media (max-width: 760px) {
     .pano-wrap { width: 100%; aspect-ratio: 4 / 3; }
     .pano-head { width: 100%; }
@@ -526,6 +554,7 @@
     </div>
     <div class="pano-wrap">
       <div id="pano-placeholder-impl" class="pano-placeholder" onclick="loadImpl()">
+        <div class="pano-preview" style="background-image: url('360implantation.jpg');"></div>
         <div class="pano-play-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
         </div>
@@ -544,6 +573,7 @@
     </div>
     <div class="pano-wrap">
       <div id="pano-placeholder-tour" class="pano-placeholder" onclick="loadTour()">
+        <div class="pano-preview" style="background-image: url('360salon.jpg');"></div>
         <div class="pano-play-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
         </div>
@@ -553,6 +583,9 @@
       <button class="pano-fs-btn" id="pano-fs-btn-tour" style="display:none;" onclick="toggleTourFS()">Plein écran</button>
     </div>
   </section>
+
+  <!-- Bouton quitter plein écran (global) -->
+  <button class="pano-exit-fs" id="pano-exit-fs" onclick="exitFullscreen()">✕ Quitter le plein écran</button>
 
   <section class="contact" id="contact">
     <h2 class="contact-head">Travaillons<br>ensemble</h2>
@@ -617,6 +650,16 @@
   function toggleTourFS() {
     if (window.tourViewer) window.tourViewer.toggleFullscreen();
   }
+
+  // ===== QUITTER PLEIN ÉCRAN =====
+  function exitFullscreen() {
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }
+  document.addEventListener('fullscreenchange', function () {
+    var btn = document.getElementById('pano-exit-fs');
+    btn.style.display = document.fullscreenElement ? 'block' : 'none';
+  });
 
   function zoom(src, el) {
     var lb = document.getElementById('lightbox');
@@ -717,9 +760,9 @@
     window.tourViewer = new Viewer({
       container: 'panorama-tour',
       panorama: '360salon.jpg',
-      defaultYaw: 0.5038,
+      defaultYaw: 0.5038 - 0.7854,
       defaultPitch: -0.0916,
-      defaultZoomLvl: 50,
+      defaultZoomLvl: 0,
       minFov: 30,
       maxFov: 90,
       navbar: false,
@@ -727,7 +770,7 @@
       touchmoveTwoFingers: false,
       plugins: [
         [VirtualTourPlugin, {
-          renderMode: '3d',
+          renderMode: '2d',
           nodes: [
             {
               id: 'salon',
