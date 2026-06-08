@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test 360 — Coordonnées hotspots</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.167/build/three.module.js",
+    "@photo-sphere-viewer/core": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.module.js"
+  }
+}
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; color: #fff; font-family: monospace; }
+  #controls {
+    padding: 16px 20px;
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    background: #111; border-bottom: 1px solid #333;
+  }
+  #controls label { font-size: 13px; color: #aaa; }
+  #controls select {
+    background: #222; color: #fff; border: 1px solid #444;
+    padding: 6px 12px; font-size: 13px; cursor: pointer;
+  }
+  #get-pos-btn {
+    background: #1a5fa0; color: #fff; border: none;
+    padding: 8px 18px; font-size: 13px; cursor: pointer; letter-spacing: 1px;
+  }
+  #get-pos-btn:hover { background: #2271b8; }
+  #output {
+    padding: 10px 16px;
+    background: #0a1628;
+    font-size: 13px; color: #4fc;
+    border-bottom: 1px solid #333;
+    min-height: 36px;
+  }
+  #viewer { width: 100vw; height: calc(100vh - 110px); }
+</style>
+</head>
+<body>
+<div id="controls">
+  <label>Scène :</label>
+  <select id="scene-select" onchange="changeScene(this.value)">
+    <option value="360chambre.jpg">Chambre</option>
+    <option value="360piscine.jpg">Piscine</option>
+    <option value="360salon.jpg">Salon</option>
+    <option value="360sdb.jpg">Salle de bain</option>
+    <option value="360terrasse.jpg">Terrasse</option>
+  </select>
+  <button id="get-pos-btn" onclick="getPos()">📍 Récupérer position</button>
+  <span style="color:#666; font-size:12px;">Centre la vue sur l'endroit voulu puis clique</span>
+</div>
+<div id="output">Navigue dans la vue puis clique sur "Récupérer position"</div>
+<div id="viewer"></div>
+
+<script type="module">
+  import { Viewer } from '@photo-sphere-viewer/core';
+
+  window.panoViewer = new Viewer({
+    container: 'viewer',
+    panorama: '360chambre.jpg',
+    defaultZoomLvl: 50,
+    navbar: false,
+    moveInertia: true,
+  });
+
+  window.changeScene = function(src) {
+    window.panoViewer.setPanorama(src);
+    document.getElementById('output').textContent = 'Scène : ' + src;
+  };
+
+  window.getPos = function() {
+    var pos = window.panoViewer.getPosition();
+    var zoom = window.panoViewer.getZoomLevel();
+    var txt = 'yaw: ' + pos.yaw.toFixed(4) + ' rad  |  pitch: ' + pos.pitch.toFixed(4) + ' rad  |  zoom: ' + zoom;
+    document.getElementById('output').textContent = txt;
+    console.log('Position:', pos, '| Zoom:', zoom);
+  };
+</script>
+</body>
+</html>
