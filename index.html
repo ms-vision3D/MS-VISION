@@ -36,7 +36,9 @@
   html { scroll-behavior: smooth; }
   body {
     font-family: var(--font-body);
-    background: var(--navy-deep);
+    background-color: var(--navy-deep);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg stroke='%23ffffff' stroke-opacity='0.13' stroke-width='1'%3E%3Cline x1='110' y1='98' x2='110' y2='122'/%3E%3Cline x1='98' y1='110' x2='122' y2='110'/%3E%3C/g%3E%3C/svg%3E");
+    background-position: center top;
     color: var(--white);
     overflow-x: hidden;
     line-height: 1.5;
@@ -437,6 +439,16 @@
     color: rgba(244,245,247,0.8);
     text-shadow: 0 1px 6px rgba(0,0,0,0.8);
   }
+  /* Hotspots visite virtuelle réduits de moitié */
+  .psv-virtual-tour-link {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .psv-virtual-tour-link img,
+  .psv-virtual-tour-link svg {
+    width: 40px !important;
+    height: 40px !important;
+  }
   .pano-fs-btn {
     position: absolute;
     bottom: 12px; right: 12px;
@@ -751,7 +763,7 @@
       container: 'panorama-impl',
       panorama: '360implantation.jpg',
       defaultYaw: 3.8407,
-      defaultPitch: -0.3491,
+      defaultPitch: -0.1746,
       defaultZoomLvl: 50,
       minFov: 30,
       maxFov: 90,
@@ -778,6 +790,15 @@
       plugins: [
         [VirtualTourPlugin, {
           renderMode: '2d',
+          transitionOptions: (toNode) => {
+            const pos = roomPositions[toNode.id];
+            return {
+              effect: 'fade',
+              rotation: true,
+              rotateTo: pos ? { yaw: pos.yaw, pitch: pos.pitch } : undefined,
+              zoomTo: 0,
+            };
+          },
           nodes: [
             {
               id: 'salon',
@@ -827,15 +848,6 @@
           ]
         }]
       ]
-    });
-
-    // Orientation fixe par pièce — indépendante de la navigation
-    const plugin = window.tourViewer.getPlugin(VirtualTourPlugin);
-    plugin.addEventListener('node-changed', ({ node }) => {
-      const pos = roomPositions[node.id];
-      if (pos) {
-        window.tourViewer.rotate({ yaw: pos.yaw, pitch: pos.pitch });
-      }
     });
   };
 </script>
