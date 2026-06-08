@@ -75,21 +75,19 @@
 
   /* ============ NAVBAR ============ */
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
+    position: relative;
     z-index: 100;
     height: 76px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 clamp(20px, 4vw, 56px);
-    background: rgba(6, 14, 26, 0.7);
-    backdrop-filter: blur(14px);
+    background: rgba(6, 14, 26, 0.95);
     border-bottom: 1px solid var(--line);
-    transform: translateY(-100%);
-    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.3s;
+    opacity: 0;
+    transition: opacity 0.8s ease 1.3s;
   }
-  nav.show { transform: translateY(0); }
+  nav.show { opacity: 1; }
   .nav-logo img { height: 52px; display: block; }
   .nav-right { display: flex; align-items: center; gap: clamp(20px, 3vw, 40px); }
   .nav-link {
@@ -120,10 +118,11 @@
   /* ============ VIDEO BAND ============ */
   .video-band {
     width: 100%;
-    padding: 110px clamp(20px, 4vw, 56px) clamp(40px, 6vw, 90px);
+    padding: 40px clamp(20px, 4vw, 56px) clamp(32px, 5vw, 72px);
   }
   .video-frame {
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     aspect-ratio: 16 / 9;
     background: var(--navy-mid);
     overflow: hidden;
@@ -554,13 +553,14 @@
     </div>
     <div class="pano-wrap">
       <div id="pano-placeholder-impl" class="pano-placeholder" onclick="loadImpl()">
-        <div class="pano-preview" style="background-image: url('360implantation-preview.jpg'); background-position: center;"></div>
+        <div class="pano-preview" style="background-image: url('360implantation.jpg'); background-position: 61% center;"></div>
         <div class="pano-play-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
         </div>
         <p class="pano-play-label">Visualiser l'implantation dans son contexte</p>
       </div>
       <div id="panorama-impl" class="pano-viewer" style="display:none;"></div>
+      <button class="pano-fs-btn" id="pano-fs-btn-impl" style="display:none;" onclick="toggleImplFS()">Plein écran</button>
     </div>
   </section>
 
@@ -579,10 +579,10 @@
         <p class="pano-play-label">Explorer le chalet en immersif</p>
       </div>
       <div id="panorama-tour" class="pano-viewer" style="display:none;"></div>
+      <button class="pano-fs-btn" id="pano-fs-btn-tour" style="display:none;" onclick="toggleTourFS()">Plein écran</button>
     </div>
   </section>
 
-  <!-- Bouton quitter plein écran (global) -->
   <button class="pano-exit-fs" id="pano-exit-fs" onclick="exitFullscreen()">✕ Quitter le plein écran</button>
 
   <section class="contact" id="contact">
@@ -631,14 +631,22 @@
   function loadImpl() {
     document.getElementById('pano-placeholder-impl').style.display = 'none';
     document.getElementById('panorama-impl').style.display = 'block';
+    document.getElementById('pano-fs-btn-impl').style.display = 'block';
     window._initImpl();
+  }
+  function toggleImplFS() {
+    if (window.implViewer) window.implViewer.toggleFullscreen();
   }
 
   // ===== VISITE VIRTUELLE =====
   function loadTour() {
     document.getElementById('pano-placeholder-tour').style.display = 'none';
     document.getElementById('panorama-tour').style.display = 'block';
+    document.getElementById('pano-fs-btn-tour').style.display = 'block';
     window._initTour();
+  }
+  function toggleTourFS() {
+    if (window.tourViewer) window.tourViewer.toggleFullscreen();
   }
 
   // ===== QUITTER PLEIN ÉCRAN =====
@@ -728,13 +736,22 @@
   import { Viewer } from '@photo-sphere-viewer/core';
   import { VirtualTourPlugin } from '@photo-sphere-viewer/virtual-tour-plugin';
 
+  // Positions d'accueil par pièce
+  const roomPositions = {
+    salon:    { yaw: 0.2780,  pitch:  0.0516 },
+    sdb:      { yaw: 0.2345,  pitch:  0.0134 },
+    chambre:  { yaw: 0.0974,  pitch: -0.2410 },
+    piscine:  { yaw: 0.4314,  pitch: -0.0799 },
+    terrasse: { yaw: 5.7137,  pitch: -0.0188 },
+  };
+
   // Implantation 360
   window._initImpl = function () {
     window.implViewer = new Viewer({
       container: 'panorama-impl',
       panorama: '360implantation.jpg',
-      defaultYaw: 3.4916,
-      defaultPitch: 0,
+      defaultYaw: 3.8407,
+      defaultPitch: -0.3491,
       defaultZoomLvl: 50,
       minFov: 30,
       maxFov: 90,
@@ -750,8 +767,8 @@
     window.tourViewer = new Viewer({
       container: 'panorama-tour',
       panorama: '360salon.jpg',
-      defaultYaw: 0.5038 - 0.7854,
-      defaultPitch: -0.0916,
+      defaultYaw: roomPositions.salon.yaw,
+      defaultPitch: roomPositions.salon.pitch,
       defaultZoomLvl: 0,
       minFov: 30,
       maxFov: 90,
@@ -766,20 +783,17 @@
               id: 'salon',
               panorama: '360salon.jpg',
               name: 'Salon',
-              defaultYaw: 0.5038,
-              defaultPitch: -0.0916,
               links: [
-                { nodeId: 'sdb',     position: { yaw: 2.1838, pitch: 0.3732 } },
-                { nodeId: 'chambre', position: { yaw: 1.6452, pitch: 0.3980 } },
-                { nodeId: 'piscine', position: { yaw: 1.5386, pitch: -0.1551 } },
+                { nodeId: 'sdb',      position: { yaw: 2.1838, pitch:  0.3732 } },
+                { nodeId: 'chambre',  position: { yaw: 1.6452, pitch:  0.3980 } },
+                { nodeId: 'piscine',  position: { yaw: 1.5386, pitch: -0.1551 } },
+                { nodeId: 'terrasse', position: { yaw: 6.1364, pitch: -0.0388 } },
               ]
             },
             {
               id: 'sdb',
               panorama: '360sdb.jpg',
               name: 'Salle de bain',
-              defaultYaw: 0.1907,
-              defaultPitch: -0.0954,
               links: [
                 { nodeId: 'salon',   position: { yaw: 5.5113, pitch: -0.1621 } },
                 { nodeId: 'chambre', position: { yaw: 6.0723, pitch: -0.1313 } },
@@ -789,8 +803,6 @@
               id: 'chambre',
               panorama: '360chambre.jpg',
               name: 'Chambre',
-              defaultYaw: 6.1032,
-              defaultPitch: -0.0355,
               links: [
                 { nodeId: 'salon', position: { yaw: 4.1440, pitch: -0.1618 } },
                 { nodeId: 'sdb',   position: { yaw: 3.4910, pitch: -0.1384 } },
@@ -800,15 +812,30 @@
               id: 'piscine',
               panorama: '360piscine.jpg',
               name: 'Piscine',
-              defaultYaw: 0.5038,
-              defaultPitch: -0.0916,
               links: [
                 { nodeId: 'salon', position: { yaw: 5.6050, pitch: -0.0880 } },
+              ]
+            },
+            {
+              id: 'terrasse',
+              panorama: '360terrasse.jpg',
+              name: 'Terrasse',
+              links: [
+                { nodeId: 'salon', position: { yaw: 0.9912, pitch: -0.2704 } },
               ]
             },
           ]
         }]
       ]
+    });
+
+    // Orientation fixe par pièce — indépendante de la navigation
+    const plugin = window.tourViewer.getPlugin(VirtualTourPlugin);
+    plugin.addEventListener('node-changed', ({ node }) => {
+      const pos = roomPositions[node.id];
+      if (pos) {
+        window.tourViewer.rotate({ yaw: pos.yaw, pitch: pos.pitch });
+      }
     });
   };
 </script>
