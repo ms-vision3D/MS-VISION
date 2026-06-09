@@ -37,7 +37,7 @@
   body {
     font-family: var(--font-body);
     background-color: var(--navy-deep);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg opacity='0.2'%3E%3Cline x1='50' y1='39' x2='50' y2='61' stroke='white' stroke-width='0.25'/%3E%3Cline x1='39' y1='50' x2='61' y2='50' stroke='white' stroke-width='0.25'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg opacity='0.2'%3E%3Cline x1='50' y1='44' x2='50' y2='56' stroke='white' stroke-width='0.12'/%3E%3Cline x1='44' y1='50' x2='56' y2='50' stroke='white' stroke-width='0.12'/%3E%3C/g%3E%3C/svg%3E");
     background-size: 20vw 20vw;
     background-position: center top;
     color: var(--white);
@@ -530,7 +530,7 @@
 <nav id="navbar">
   <a href="#" class="nav-logo"><img src="ms-visionALPHA.png" alt="MS VISION"></a>
   <div class="nav-right">
-    <a href="#contact" class="nav-link contact-nav">Contact</a>
+    <a href="#contact" class="nav-link contact-nav" data-i18n="nav-contact">Contact</a>
     <div class="lang">
       <span class="active" data-lang="fr">FR</span>
       <span data-lang="en">EN</span>
@@ -549,8 +549,8 @@
   </section>
 
   <section class="lead">
-    <h1>Visualisation<br>architecturale<br><span class="dim">d'exception</span></h1>
-    <p>MS VISION accompagne architectes et promoteurs dans la valorisation de leurs projets. Des rendus 3D photoréalistes pensés pour convaincre, séduire et vendre.</p>
+    <h1 data-i18n="lead-title">Visualisation<br>architecturale<br><span class="dim">d'exception</span></h1>
+    <p data-i18n="lead-sub">MS VISION accompagne architectes et promoteurs dans la valorisation de leurs projets. Des rendus 3D photoréalistes pensés pour convaincre, séduire et vendre.</p>
   </section>
 
   <section class="portfolio">
@@ -587,8 +587,8 @@
   <!-- SECTION IMPLANTATION 360 -->
   <section class="pano-section">
     <div class="pano-head">
-      <p class="pano-badge">Visite immersive</p>
-      <h2 class="pano-title">Implantation<br>panoramique 360°</h2>
+      <p class="pano-badge" data-i18n="impl-badge">Visite immersive</p>
+      <h2 class="pano-title" data-i18n="impl-title">Implantation<br>panoramique 360°</h2>
     </div>
     <div class="pano-wrap">
       <div id="pano-placeholder-impl" class="pano-placeholder" onclick="loadImpl()">
@@ -596,7 +596,7 @@
         <div class="pano-play-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
         </div>
-        <p class="pano-play-label">Visualiser l'implantation dans son contexte</p>
+        <p class="pano-play-label" data-i18n="impl-play">Visualiser l'implantation dans son contexte</p>
       </div>
       <div id="panorama-impl" class="pano-viewer" style="display:none;"></div>
       <div class="pano-controls" id="pano-controls-impl" style="display:none;">
@@ -612,8 +612,8 @@
   <!-- SECTION VISITE VIRTUELLE -->
   <section class="pano-section">
     <div class="pano-head">
-      <p class="pano-badge">Visite virtuelle</p>
-      <h2 class="pano-title">Explorer le chalet<br>en immersif</h2>
+      <p class="pano-badge" data-i18n="tour-badge">Visite virtuelle</p>
+      <h2 class="pano-title" data-i18n="tour-title">Explorer le chalet<br>en immersif</h2>
     </div>
     <div class="pano-wrap">
       <div id="pano-placeholder-tour" class="pano-placeholder" onclick="loadTour()">
@@ -621,7 +621,7 @@
         <div class="pano-play-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
         </div>
-        <p class="pano-play-label">Explorer le chalet en immersif</p>
+        <p class="pano-play-label" data-i18n="tour-play">Explorer le chalet en immersif</p>
       </div>
       <div id="panorama-tour" class="pano-viewer" style="display:none;"></div>
       <div class="pano-controls" id="pano-controls-tour" style="display:none;">
@@ -646,8 +646,8 @@
   <!-- SECTION DESSIN ARCHITECTURAL -->
   <section class="pano-section">
     <div class="pano-head">
-      <p class="pano-badge">Modélisation & BIM</p>
-      <h2 class="pano-title">Dessin<br>architectural</h2>
+      <p class="pano-badge" data-i18n="bim-badge">Modélisation & BIM</p>
+      <h2 class="pano-title" data-i18n="bim-title">Dessin<br>architectural</h2>
     </div>
     <div class="pano-wrap">
       <img src="dessinbim.png" alt="Dessin architectural BIM"
@@ -656,32 +656,33 @@
   </section>
 
   <section class="contact" id="contact">
-    <h2 class="contact-head">Travaillons<br>ensemble</h2>
+    <h2 class="contact-head" data-i18n="contact-head">Travaillons<br>ensemble</h2>
     <div class="contact-grid">
-      <form onsubmit="return false">
+      <form id="contact-form">
         <div class="field">
-          <label>Nom</label>
-          <input type="text" name="name">
+          <label data-i18n="form-name">Nom</label>
+          <input type="text" name="name" required>
         </div>
         <div class="field">
-          <label>Email</label>
-          <input type="email" name="email">
+          <label data-i18n="form-email">Email</label>
+          <input type="email" name="email" required>
         </div>
         <div class="field">
-          <label>Votre projet</label>
-          <textarea name="message"></textarea>
+          <label data-i18n="form-project">Votre projet</label>
+          <textarea name="message" required></textarea>
         </div>
-        <button class="submit">Envoyer</button>
+        <button class="submit" type="submit" data-i18n="form-send">Envoyer</button>
+        <p id="form-status" style="margin-top:12px; font-size:13px; letter-spacing:1px;"></p>
       </form>
       <div class="contact-aside">
-        <p>Vous avez un projet architectural à valoriser ? Contactez MS VISION pour un devis personnalisé sous 24h.</p>
+        <p data-i18n="contact-aside">Vous avez un projet architectural à valoriser ? Contactez MS VISION pour un devis personnalisé sous 24h.</p>
         <p><a href="mailto:contact@msvision.fr">contact@msvision.fr</a></p>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="footer-copy">© 2026 MS VISION — Tous droits réservés</div>
+    <div class="footer-copy" data-i18n="footer-copy">© 2026 MS VISION — Tous droits réservés</div>
     <div class="socials">
       <a href="#" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -808,10 +809,112 @@
     }
   });
 
-  document.querySelectorAll('.lang span').forEach(function (s) {
-    s.addEventListener('click', function () {
-      document.querySelectorAll('.lang span').forEach(function (x) { x.classList.remove('active'); });
-      s.classList.add('active');
+  // ===== TRADUCTION FR / EN =====
+  // Pour ajouter/modifier du texte : modifie uniquement le côté "fr",
+  // puis mets à jour le côté "en" correspondant.
+  var translations = {
+    fr: {
+      'nav-contact':    'Contact',
+      'lead-title':     'Visualisation<br>architecturale<br><span class="dim">d\'exception</span>',
+      'lead-sub':       'MS VISION accompagne architectes et promoteurs dans la valorisation de leurs projets. Des rendus 3D photoréalistes pensés pour convaincre, séduire et vendre.',
+      'impl-badge':     'Visite immersive',
+      'impl-title':     'Implantation<br>panoramique 360°',
+      'impl-play':      'Visualiser l\'implantation dans son contexte',
+      'tour-badge':     'Visite virtuelle',
+      'tour-title':     'Explorer le chalet<br>en immersif',
+      'tour-play':      'Explorer le chalet en immersif',
+      'bim-badge':      'Modélisation & BIM',
+      'bim-title':      'Dessin<br>architectural',
+      'contact-head':   'Travaillons<br>ensemble',
+      'form-name':      'Nom',
+      'form-email':     'Email',
+      'form-project':   'Votre projet',
+      'form-send':      'Envoyer',
+      'contact-aside':  'Vous avez un projet architectural à valoriser ? Contactez MS VISION pour un devis personnalisé sous 24h.',
+      'footer-copy':    '© 2026 MS VISION — Tous droits réservés',
+    },
+    en: {
+      'nav-contact':    'Contact',
+      'lead-title':     'Architectural<br>visualisation<br><span class="dim">of excellence</span>',
+      'lead-sub':       'MS VISION supports architects and developers in showcasing their projects. Photorealistic 3D renders designed to convince, captivate and sell.',
+      'impl-badge':     'Immersive experience',
+      'impl-title':     'Panoramic<br>site mapping 360°',
+      'impl-play':      'Explore the site in its geographic context',
+      'tour-badge':     'Virtual tour',
+      'tour-title':     'Explore the chalet<br>in immersive 360°',
+      'tour-play':      'Explore the chalet in immersive 360°',
+      'bim-badge':      'Modelling & BIM',
+      'bim-title':      'Architectural<br>drawing',
+      'contact-head':   'Let\'s work<br>together',
+      'form-name':      'Name',
+      'form-email':     'Email',
+      'form-project':   'Your project',
+      'form-send':      'Send',
+      'contact-aside':  'Do you have an architectural project to showcase? Contact MS VISION for a personalised quote within 24h.',
+      'footer-copy':    '© 2026 MS VISION — All rights reserved',
+    }
+  };
+
+  var currentLang = 'fr';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    var t = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.querySelectorAll('.lang span').forEach(function(s) {
+      s.classList.toggle('active', s.getAttribute('data-lang') === lang);
+    });
+    document.documentElement.lang = lang;
+  }
+
+  document.querySelectorAll('.lang span').forEach(function(s) {
+    s.addEventListener('click', function() {
+      applyLang(s.getAttribute('data-lang'));
+    });
+  });
+
+  // ===== FORMULAIRE CONTACT (Formspree) =====
+  // Remplace XXXXXXXX par ton ID Formspree après création du compte sur formspree.io
+  var FORMSPREE_ID = 'XXXXXXXX';
+
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = e.target;
+    var status = document.getElementById('form-status');
+    var btn = form.querySelector('.submit');
+    btn.disabled = true;
+    btn.textContent = currentLang === 'fr' ? 'Envoi...' : 'Sending...';
+    status.textContent = '';
+
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(res) {
+      if (res.ok) {
+        status.style.color = '#4fc';
+        status.textContent = currentLang === 'fr'
+          ? 'Message envoyé — nous vous répondrons sous 24h.'
+          : 'Message sent — we will reply within 24h.';
+        form.reset();
+      } else {
+        throw new Error();
+      }
+    })
+    .catch(function() {
+      status.style.color = '#f88';
+      status.textContent = currentLang === 'fr'
+        ? 'Erreur d\'envoi. Contactez-nous directement par email.'
+        : 'Send error. Please contact us directly by email.';
+    })
+    .finally(function() {
+      btn.disabled = false;
+      btn.textContent = currentLang === 'fr' ? 'Envoyer' : 'Send';
     });
   });
 
