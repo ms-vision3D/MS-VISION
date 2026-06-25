@@ -141,26 +141,37 @@
   }
 
   /* ============ INTRO TEXT ============ */
-  .lead {
-    padding: clamp(40px, 8vw, 120px) clamp(20px, 4vw, 56px);
-    max-width: 1000px;
+  .about {
+    padding: clamp(50px, 8vw, 120px) clamp(20px, 4vw, 56px);
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
   }
-  .lead h1 {
+  .about-title {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(40px, 8vw, 104px);
-    line-height: 0.98;
+    font-size: clamp(28px, 4vw, 56px);
+    line-height: 1.02;
     letter-spacing: -1px;
     text-transform: uppercase;
   }
-  .lead h1 .dim { color: var(--gray-dim); }
-  .lead p {
-    margin-top: 32px;
-    max-width: 520px;
+  .about-title .dim { color: var(--gray-dim); }
+  .about-text p {
+    margin-top: 28px;
     color: var(--gray);
     font-size: 15px;
     font-weight: 300;
     line-height: 1.9;
+  }
+  .about-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--line);
+    filter: grayscale(15%);
   }
 
   /* ============ BOOK ROWS ============ */
@@ -305,10 +316,16 @@
 
   /* ============ PORTFOLIO GRID ============ */
   .portfolio {
-    padding: clamp(16px, 3vw, 40px);
+    padding: clamp(40px, 6vw, 90px) clamp(16px, 3vw, 40px);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+  .portfolio-head {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto 36px;
   }
   .portfolio-grid {
     display: grid;
@@ -510,12 +527,72 @@
     .pano-head { width: 100%; }
   }
 
+  /* ============ SECTION PROJET D'ÉTUDE ============ */
+  .study-section {
+    padding: clamp(40px, 7vw, 100px) clamp(20px, 4vw, 56px);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .study-head { max-width: 720px; margin-bottom: 44px; }
+  .study-badge {
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 600; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gray-dim);
+    margin-bottom: 18px;
+  }
+  .study-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 28px;
+  }
+  .study-text {
+    color: var(--gray);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.9;
+  }
+  .study-link {
+    display: inline-block;
+    margin-top: 24px;
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 3px;
+    transition: opacity 0.2s;
+  }
+  .study-link:hover { opacity: 0.6; }
+  .study-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .study-img {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--line);
+  }
+  .study-img img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width: 760px) {
     .row { grid-template-columns: 1fr; gap: 28px; }
     .row.text-right .photo, .row.text-right .txt { order: 0; }
     .contact-grid { grid-template-columns: 1fr; }
     .nav-link.contact-nav { display: none; }
+    .study-images { grid-template-columns: 1fr; }
+    .about { grid-template-columns: 1fr; }
+    .about-photo { max-width: 300px; }
   }
 </style>
 </head>
@@ -542,18 +619,17 @@
 
   <section class="video-band">
     <div class="video-frame">
-      <video autoplay muted loop playsinline>
-        <source src="ms-vision-intro1.mp4" type="video/mp4">
+      <video id="band-video" muted loop playsinline preload="auto">
+        <source src="renderroomcdp.mp4" type="video/mp4">
       </video>
     </div>
   </section>
 
-  <section class="lead">
-    <h1 data-i18n="lead-title">Visualisation<br>architecturale<br><span class="dim">d'exception</span></h1>
-    <p data-i18n="lead-sub">MS VISION accompagne architectes et promoteurs dans la valorisation de leurs projets. Des rendus 3D photoréalistes pensés pour convaincre, séduire et vendre.</p>
-  </section>
-
   <section class="portfolio">
+    <div class="pano-head portfolio-head">
+      <p class="pano-badge" data-i18n="portfolio-badge">Quelques projections</p>
+      <h2 class="pano-title" data-i18n="portfolio-title">Images de perspective</h2>
+    </div>
     <div class="portfolio-grid">
 
       <!-- COLONNE GAUCHE -->
@@ -587,8 +663,8 @@
   <!-- SECTION IMPLANTATION 360 -->
   <section class="pano-section">
     <div class="pano-head">
-      <p class="pano-badge" data-i18n="impl-badge">Visite immersive</p>
-      <h2 class="pano-title" data-i18n="impl-title">Implantation<br>panoramique 360°</h2>
+      <p class="pano-badge" data-i18n="impl-badge">Imagerie aérienne</p>
+      <h2 class="pano-title" data-i18n="impl-title">Implantation<br>aérienne 360°</h2>
     </div>
     <div class="pano-wrap">
       <div id="pano-placeholder-impl" class="pano-placeholder" onclick="loadImpl()">
@@ -612,8 +688,8 @@
   <!-- SECTION VISITE VIRTUELLE -->
   <section class="pano-section">
     <div class="pano-head">
-      <p class="pano-badge" data-i18n="tour-badge">Visite virtuelle</p>
-      <h2 class="pano-title" data-i18n="tour-title">Explorer le chalet<br>en immersif</h2>
+      <p class="pano-badge" data-i18n="tour-badge">Visite immersive</p>
+      <h2 class="pano-title" data-i18n="tour-title">Visite virtuelle<br>360°</h2>
     </div>
     <div class="pano-wrap">
       <div id="pano-placeholder-tour" class="pano-placeholder" onclick="loadTour()">
@@ -643,20 +719,33 @@
 
   <button class="pano-exit-fs" id="pano-exit-fs" onclick="exitFullscreen()">✕ Quitter le plein écran</button>
 
-  <!-- SECTION DESSIN ARCHITECTURAL -->
-  <section class="pano-section">
-    <div class="pano-head">
-      <p class="pano-badge" data-i18n="bim-badge">Modélisation & BIM</p>
-      <h2 class="pano-title" data-i18n="bim-title">Dessin<br>architectural</h2>
+  <!-- SECTION PROJET D'ÉTUDE -->
+  <section class="study-section">
+    <div class="study-head">
+      <p class="study-badge" data-i18n="study-badge">Projet d'étude</p>
+      <h2 class="study-title" data-i18n="study-title">Chalet des Planes</h2>
+      <p class="study-text" data-i18n="study-text">Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j'ai mené un projet personnel : reconstituer un chalet existant à partir d'images de référence.<br><br>En interprétant les proportions du Chalet des Planes (proposé à la location par AMA Selections), j'ai réalisé une maquette BIM complète sous Archicad, avant de la retravailler sous 3ds Max — modélisation du mobilier, de l'environnement et scénographie — pour la mettre en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m'a permis de maîtriser l'ensemble de la chaîne, du relevé à l'image finale.</p>
+      <a class="study-link" href="https://amaselections.com/france/luxury-chalet-rentals-french-alps/megeve/chalet-des-planes" target="_blank" rel="noopener" data-i18n="study-link">→ Voir l'annonce originale</a>
     </div>
-    <div class="pano-wrap">
-      <img src="dessinbim.png" alt="Dessin architectural BIM"
-           style="width:100%; height:100%; object-fit:cover; display:block;">
+    <div class="study-images">
+      <div class="study-img"><img src="dessinbim.png" alt="Maquette BIM Archicad"></div>
+      <div class="study-img"><img src="upday.jpg" alt="Rendu final 3D"></div>
+    </div>
+  </section>
+
+  <!-- SECTION À PROPOS (présentation Matthieu) -->
+  <section class="about">
+    <div class="about-text">
+      <h2 class="about-title" data-i18n="lead-title">Je m'appelle<br>Matthieu Salami,<br><span class="dim">artisan et créateur d'images.</span></h2>
+      <p data-i18n="lead-sub">Avec une expérience dans le bois et une formation en charpente-couverture auprès de Compagnons et MOF, je travaille l'image depuis dix ans maintenant, sur des compétences variées : de l'événementiel au montage vidéo, de la retouche photo à l'étalonnage, ou bien du drone FPV à la modélisation 3D.<br><br>MS VISION, c'est la rencontre de ces deux métiers : une connaissance réelle de la construction et des matériaux, mise au service de la représentation de vos projets. Comprendre l'ouvrage pour mieux le restituer.</p>
+    </div>
+    <div class="about-photo">
+      <img src="pdp.jpg" alt="Matthieu Salami — MS VISION">
     </div>
   </section>
 
   <section class="contact" id="contact">
-    <h2 class="contact-head" data-i18n="contact-head">Travaillons<br>ensemble</h2>
+    <h2 class="contact-head" data-i18n="contact-head">Représentons<br>votre projet</h2>
     <div class="contact-grid">
       <form id="contact-form">
         <div class="field">
@@ -675,8 +764,9 @@
         <p id="form-status" style="margin-top:12px; font-size:13px; letter-spacing:1px;"></p>
       </form>
       <div class="contact-aside">
-        <p data-i18n="contact-aside">Vous avez un projet architectural à valoriser ? Contactez MS VISION pour un devis personnalisé sous 24h.</p>
-        <p><a href="mailto:contact@msvision.fr">contact@msvision.fr</a></p>
+        <p data-i18n="contact-aside">Vous avez un projet à représenter ? Chaque projet est singulier et mérite une image qui lui ressemble.</p>
+        <p><a href="mailto:contact@msvision3d.fr">contact@msvision3d.fr</a></p>
+        <p><a href="tel:+33600000000" data-i18n="contact-phone">+33 6 00 00 00 00</a></p>
       </div>
     </div>
   </section>
@@ -795,15 +885,27 @@
 
   window.addEventListener('load', function () {
     var video = document.getElementById('intro-video');
+    var bandVideo = document.getElementById('band-video');
+    var revealed = false;
     function revealSite() {
+      if (revealed) return;
+      revealed = true;
       document.getElementById('intro').classList.add('done');
       document.getElementById('navbar').classList.add('show');
       document.getElementById('content').classList.add('show');
+      // Lance la vidéo du bandeau depuis le début, à la fin de l'intro
+      if (bandVideo) {
+        try {
+          bandVideo.currentTime = 0;
+          var p = bandVideo.play();
+          if (p && p.catch) p.catch(function () {});
+        } catch (e) {}
+      }
     }
     if (video) {
       video.addEventListener('ended', revealSite);
-      // Fallback si la vidéo ne charge pas
-      setTimeout(revealSite, 6000);
+      // Fallback si la vidéo d'intro ne charge pas
+      setTimeout(revealSite, 8000);
     } else {
       setTimeout(revealSite, 1000);
     }
@@ -815,42 +917,52 @@
   var translations = {
     fr: {
       'nav-contact':    'Contact',
-      'lead-title':     'Visualisation<br>architecturale<br><span class="dim">d\'exception</span>',
-      'lead-sub':       'MS VISION accompagne architectes et promoteurs dans la valorisation de leurs projets. Des rendus 3D photoréalistes pensés pour convaincre, séduire et vendre.',
-      'impl-badge':     'Visite immersive',
-      'impl-title':     'Implantation<br>panoramique 360°',
+      'lead-title':     'Je m\'appelle<br>Matthieu Salami,<br><span class="dim">artisan et créateur d\'images.</span>',
+      'lead-sub':       'Avec une expérience dans le bois et une formation en charpente-couverture auprès de Compagnons et MOF, je travaille l\'image depuis dix ans maintenant, sur des compétences variées : de l\'événementiel au montage vidéo, de la retouche photo à l\'étalonnage, ou bien du drone FPV à la modélisation 3D.<br><br>MS VISION, c\'est la rencontre de ces deux métiers : une connaissance réelle de la construction et des matériaux, mise au service de la représentation de vos projets. Comprendre l\'ouvrage pour mieux le restituer.',
+      'portfolio-badge':'Quelques projections',
+      'portfolio-title':'Images de perspective',
+      'impl-badge':     'Imagerie aérienne',
+      'impl-title':     'Implantation<br>aérienne 360°',
       'impl-play':      'Visualiser l\'implantation dans son contexte',
-      'tour-badge':     'Visite virtuelle',
-      'tour-title':     'Explorer le chalet<br>en immersif',
+      'tour-badge':     'Visite immersive',
+      'tour-title':     'Visite virtuelle<br>360°',
       'tour-play':      'Explorer le chalet en immersif',
-      'bim-badge':      'Modélisation & BIM',
-      'bim-title':      'Dessin<br>architectural',
-      'contact-head':   'Travaillons<br>ensemble',
+      'study-badge':    'Projet d\'étude',
+      'study-title':    'Chalet des Planes',
+      'study-text':     'Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j\'ai mené un projet personnel : reconstituer un chalet existant à partir d\'images de référence.<br><br>En interprétant les proportions du Chalet des Planes (proposé à la location par AMA Selections), j\'ai réalisé une maquette BIM complète sous Archicad, avant de la retravailler sous 3ds Max — modélisation du mobilier, de l\'environnement et scénographie — pour la mettre en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m\'a permis de maîtriser l\'ensemble de la chaîne, du relevé à l\'image finale.',
+      'study-link':     '→ Voir l\'annonce originale',
+      'contact-head':   'Représentons<br>votre projet',
       'form-name':      'Nom',
       'form-email':     'Email',
       'form-project':   'Votre projet',
       'form-send':      'Envoyer',
-      'contact-aside':  'Vous avez un projet architectural à valoriser ? Contactez MS VISION pour un devis personnalisé sous 24h.',
+      'contact-aside':  'Vous avez un projet à représenter ? Chaque projet est singulier et mérite une image qui lui ressemble.',
+      'contact-phone':  '+33 6 00 00 00 00',
       'footer-copy':    '© 2026 MS VISION — Tous droits réservés',
     },
     en: {
       'nav-contact':    'Contact',
-      'lead-title':     'Architectural<br>visualisation<br><span class="dim">of excellence</span>',
-      'lead-sub':       'MS VISION supports architects and developers in showcasing their projects. Photorealistic 3D renders designed to convince, captivate and sell.',
-      'impl-badge':     'Immersive experience',
-      'impl-title':     'Panoramic<br>site mapping 360°',
-      'impl-play':      'Explore the site in its geographic context',
-      'tour-badge':     'Virtual tour',
-      'tour-title':     'Explore the chalet<br>in immersive 360°',
+      'lead-title':     'My name is<br>Matthieu Salami,<br><span class="dim">craftsman and image-maker.</span>',
+      'lead-sub':       'With hands-on experience in woodwork and training in carpentry and roofing alongside Compagnons and Meilleurs Ouvriers de France, I have been working with images for ten years now, across a wide range of skills: from live events to video editing, from photo retouching to colour grading, or from FPV drone work to 3D modelling.<br><br>MS VISION is where these two trades meet: a genuine understanding of construction and materials, put to work in representing your projects. Understanding the building to better convey it.',
+      'portfolio-badge':'A few projections',
+      'portfolio-title':'Perspective imagery',
+      'impl-badge':     'Aerial imagery',
+      'impl-title':     'Aerial site<br>mapping 360°',
+      'impl-play':      'View the site in its context',
+      'tour-badge':     'Immersive experience',
+      'tour-title':     'Virtual tour<br>360°',
       'tour-play':      'Explore the chalet in immersive 360°',
-      'bim-badge':      'Modelling & BIM',
-      'bim-title':      'Architectural<br>drawing',
-      'contact-head':   'Let\'s work<br>together',
+      'study-badge':    'Study project',
+      'study-title':    'Chalet des Planes',
+      'study-text':     'To understand the drawing tools used in architecture, I trained in Revit, SketchUp and Archicad, then carried out a personal project: reconstructing an existing chalet from reference images.<br><br>By interpreting the proportions of Chalet des Planes (offered for rent by AMA Selections), I built a complete BIM model in Archicad, before reworking it in 3ds Max — furniture modelling, environment and set design — to bring it to life through the V-Ray and Unreal Engine render engines.<br><br>A process that allowed me to master the entire chain, from survey to final image.',
+      'study-link':     '→ View the original listing',
+      'contact-head':   'Let\'s represent<br>your project',
       'form-name':      'Name',
       'form-email':     'Email',
       'form-project':   'Your project',
       'form-send':      'Send',
-      'contact-aside':  'Do you have an architectural project to showcase? Contact MS VISION for a personalised quote within 24h.',
+      'contact-aside':  'Do you have a project to represent? Every project is unique and deserves an image that reflects it.',
+      'contact-phone':  '+33 6 00 00 00 00',
       'footer-copy':    '© 2026 MS VISION — All rights reserved',
     }
   };
