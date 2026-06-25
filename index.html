@@ -536,10 +536,11 @@
   .proj-intro-title {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(34px, 6vw, 80px);
-    line-height: 1.0;
-    letter-spacing: -1px;
+    font-size: clamp(20px, 3.2vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
     text-transform: uppercase;
+    white-space: nowrap;
   }
   .proj-intro-list {
     margin-top: 28px;
@@ -641,6 +642,7 @@
     .about { grid-template-columns: 1fr; }
     .about-photo { max-width: 300px; }
     .integ-note { max-width: 100%; }
+    .proj-intro-title { white-space: normal; }
   }
 </style>
 </head>
@@ -667,14 +669,14 @@
 
   <section class="video-band">
     <div class="video-frame">
-      <video id="band-video" muted loop playsinline preload="auto">
+      <video id="band-video" muted loop playsinline autoplay preload="auto">
         <source src="msvisionintro1.mp4" type="video/mp4">
       </video>
     </div>
   </section>
 
   <section class="proj-intro">
-    <h2 class="proj-intro-title" data-i18n="proj-intro-title">Quelques<br>exemples de projections</h2>
+    <h2 class="proj-intro-title" data-i18n="proj-intro-title">Quelques exemples de projections</h2>
   </section>
 
   <section class="portfolio">
