@@ -142,7 +142,7 @@
 
   /* ============ INTRO TEXT ============ */
   .about {
-    padding: clamp(50px, 8vw, 120px) clamp(20px, 4vw, 56px);
+    padding: clamp(25px, 4vw, 60px) clamp(20px, 4vw, 56px);
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
@@ -316,7 +316,7 @@
 
   /* ============ PORTFOLIO GRID ============ */
   .portfolio {
-    padding: clamp(40px, 6vw, 90px) clamp(16px, 3vw, 40px);
+    padding: clamp(20px, 3vw, 45px) clamp(16px, 3vw, 40px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -387,7 +387,7 @@
 
   /* ============ VISITE 360 ============ */
   .pano-section {
-    padding: clamp(40px, 7vw, 100px) clamp(20px, 4vw, 56px);
+    padding: clamp(20px, 3.5vw, 50px) clamp(20px, 4vw, 56px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -527,9 +527,56 @@
     .pano-head { width: 100%; }
   }
 
+  /* ============ INTRO PROJECTIONS ============ */
+  .proj-intro {
+    padding: clamp(40px, 7vw, 90px) clamp(20px, 4vw, 56px) clamp(10px, 2vw, 24px);
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .proj-intro-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(34px, 6vw, 80px);
+    line-height: 1.0;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+  }
+  .proj-intro-list {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+  }
+  .proj-intro-list span {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: var(--gray);
+    text-transform: uppercase;
+    position: relative;
+    padding-left: 18px;
+  }
+  .proj-intro-list span::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--gray-dim);
+  }
+  .integ-note {
+    margin-top: 22px;
+    max-width: 50%;
+    min-width: 320px;
+    text-align: center;
+    color: var(--gray-dim);
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
   /* ============ SECTION PROJET D'ÉTUDE ============ */
   .study-section {
-    padding: clamp(40px, 7vw, 100px) clamp(20px, 4vw, 56px);
+    padding: clamp(20px, 3.5vw, 50px) clamp(20px, 4vw, 56px);
     max-width: 1100px;
     margin: 0 auto;
   }
@@ -593,6 +640,7 @@
     .study-images { grid-template-columns: 1fr; }
     .about { grid-template-columns: 1fr; }
     .about-photo { max-width: 300px; }
+    .integ-note { max-width: 100%; }
   }
 </style>
 </head>
@@ -625,9 +673,12 @@
     </div>
   </section>
 
+  <section class="proj-intro">
+    <h2 class="proj-intro-title" data-i18n="proj-intro-title">Quelques<br>exemples de projections</h2>
+  </section>
+
   <section class="portfolio">
     <div class="pano-head portfolio-head">
-      <p class="pano-badge" data-i18n="portfolio-badge">Quelques projections</p>
       <h2 class="pano-title" data-i18n="portfolio-title">Images de perspective</h2>
     </div>
     <div class="portfolio-grid">
@@ -719,18 +770,19 @@
 
   <button class="pano-exit-fs" id="pano-exit-fs" onclick="exitFullscreen()">✕ Quitter le plein écran</button>
 
-  <!-- SECTION PROJET D'ÉTUDE -->
-  <section class="study-section">
-    <div class="study-head">
-      <p class="study-badge" data-i18n="study-badge">Projet d'étude</p>
-      <h2 class="study-title" data-i18n="study-title">Chalet des Planes</h2>
-      <p class="study-text" data-i18n="study-text">Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j'ai mené un projet personnel : reconstituer un chalet existant à partir d'images de référence.<br><br>En interprétant les proportions du Chalet des Planes (proposé à la location par AMA Selections), j'ai réalisé une maquette BIM complète sous Archicad, avant de la retravailler sous 3ds Max — modélisation du mobilier, de l'environnement et scénographie — pour la mettre en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m'a permis de maîtriser l'ensemble de la chaîne, du relevé à l'image finale. vous pouvez d'ailleurs vous aider de la visite virtuelle 360 pour comparer la maquette avec la réalité.</p>
-      <a class="study-link" href="https://amaselections.com/france/luxury-chalet-rentals-french-alps/megeve/chalet-des-planes" target="_blank" rel="noopener" data-i18n="study-link">→ Voir l'annonce originale</a>
+  <!-- SECTION INTÉGRATION 3D -->
+  <section class="pano-section">
+    <div class="pano-head">
+      <p class="pano-badge" data-i18n="integ-badge">Vidéo / Interactif</p>
+      <h2 class="pano-title" data-i18n="integ-title">Intégration 3D</h2>
     </div>
-    <div class="study-images">
-      <div class="study-img"><img src="dessinbim.png" alt="Maquette BIM Archicad"></div>
-      <div class="study-img"><img src="upday.jpg" alt="Rendu final 3D"></div>
+    <div class="pano-wrap">
+      <video id="integ-video" muted loop playsinline autoplay preload="auto"
+             style="width:100%; height:100%; object-fit:cover; display:block;">
+        <source src="integration3d.mp4" type="video/mp4">
+      </video>
     </div>
+    <p class="integ-note" data-i18n="integ-note">D'autres variantes de projections sont possibles, tels que les plans d'étage ou les visites virtuelles interactives.</p>
   </section>
 
   <!-- SECTION À PROPOS (présentation Matthieu) -->
@@ -741,6 +793,20 @@
     </div>
     <div class="about-photo">
       <img src="pdp.jpg" alt="Matthieu Salami — MS VISION">
+    </div>
+  </section>
+
+  <!-- SECTION PROJET D'ÉTUDE -->
+  <section class="study-section">
+    <div class="study-head">
+      <p class="study-badge" data-i18n="study-badge">Projet d'étude</p>
+      <h2 class="study-title" data-i18n="study-title">Chalet des Planes (Megève)</h2>
+      <p class="study-text" data-i18n="study-text">Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j'ai mené un projet personnel : reconstituer un chalet existant à partir d'images de référence.<br><br>En interprétant les proportions du Chalet des Planes (proposé à la location par AMA Selections), j'ai réalisé une maquette BIM complète sous Archicad, avant de la retravailler sous 3ds Max — modélisation du mobilier, de l'environnement et scénographie — pour la mettre en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m'a permis de maîtriser l'ensemble de la chaîne, du relevé à l'image finale.</p>
+      <a class="study-link" href="https://amaselections.com/france/luxury-chalet-rentals-french-alps/megeve/chalet-des-planes" target="_blank" rel="noopener" data-i18n="study-link">→ Voir l'annonce originale</a>
+    </div>
+    <div class="study-images">
+      <div class="study-img"><img src="dessinbim.png" alt="Maquette BIM Archicad"></div>
+      <div class="study-img"><img src="upday.jpg" alt="Rendu final 3D"></div>
     </div>
   </section>
 
@@ -919,7 +985,10 @@
       'nav-contact':    'Contact',
       'lead-title':     'Je m\'appelle<br>Matthieu Salami,<br><span class="dim">artisan et créateur d\'images.</span>',
       'lead-sub':       'Avec une expérience dans le bois et une formation en charpente-couverture auprès de Compagnons et MOF, je travaille l\'image depuis dix ans maintenant, sur des compétences variées : de l\'événementiel au montage vidéo, de la retouche photo à l\'étalonnage, ou bien du drone FPV à la modélisation 3D.<br><br>MS VISION, c\'est la rencontre de ces deux métiers : une connaissance réelle de la construction et des matériaux, mise au service de la représentation de vos projets. Comprendre l\'ouvrage pour mieux le restituer.',
-      'portfolio-badge':'Quelques projections',
+      'proj-intro-title':'Quelques<br>exemples de projections',
+      'proj-type-1':    'Images de perspective',
+      'proj-type-2':    'Imagerie aérienne 360°',
+      'proj-type-3':    'Visite virtuelle 360°',
       'portfolio-title':'Images de perspective',
       'impl-badge':     'Imagerie aérienne',
       'impl-title':     'Implantation<br>aérienne 360°',
@@ -927,8 +996,11 @@
       'tour-badge':     'Visite immersive',
       'tour-title':     'Visite virtuelle<br>360°',
       'tour-play':      'Explorer le chalet en immersif',
+      'integ-badge':    'Vidéo / Interactif',
+      'integ-title':    'Intégration 3D',
+      'integ-note':     'D\'autres variantes de projections sont possibles, tels que les plans d\'étage ou les visites virtuelles interactives.',
       'study-badge':    'Projet d\'étude',
-      'study-title':    'Chalet des Planes',
+      'study-title':    'Chalet des Planes (Megève)',
       'study-text':     'Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j\'ai mené un projet personnel : reconstituer un chalet existant à partir d\'images de référence.<br><br>En interprétant les proportions du Chalet des Planes (proposé à la location par AMA Selections), j\'ai réalisé une maquette BIM complète sous Archicad, avant de la retravailler sous 3ds Max — modélisation du mobilier, de l\'environnement et scénographie — pour la mettre en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m\'a permis de maîtriser l\'ensemble de la chaîne, du relevé à l\'image finale.',
       'study-link':     '→ Voir l\'annonce originale',
       'contact-head':   'Représentons<br>votre projet',
@@ -944,7 +1016,10 @@
       'nav-contact':    'Contact',
       'lead-title':     'My name is<br>Matthieu Salami,<br><span class="dim">craftsman and image-maker.</span>',
       'lead-sub':       'With hands-on experience in woodwork and training in carpentry and roofing alongside Compagnons and Meilleurs Ouvriers de France, I have been working with images for ten years now, across a wide range of skills: from live events to video editing, from photo retouching to colour grading, or from FPV drone work to 3D modelling.<br><br>MS VISION is where these two trades meet: a genuine understanding of construction and materials, put to work in representing your projects. Understanding the building to better convey it.',
-      'portfolio-badge':'A few projections',
+      'proj-intro-title':'A few<br>examples of projections',
+      'proj-type-1':    'Perspective imagery',
+      'proj-type-2':    'Aerial imagery 360°',
+      'proj-type-3':    'Virtual tour 360°',
       'portfolio-title':'Perspective imagery',
       'impl-badge':     'Aerial imagery',
       'impl-title':     'Aerial site<br>mapping 360°',
@@ -952,8 +1027,11 @@
       'tour-badge':     'Immersive experience',
       'tour-title':     'Virtual tour<br>360°',
       'tour-play':      'Explore the chalet in immersive 360°',
+      'integ-badge':    'Video / Interactive',
+      'integ-title':    '3D Integration',
+      'integ-note':     'Other types of projections are available, such as floor plans or interactive virtual tours.',
       'study-badge':    'Study project',
-      'study-title':    'Chalet des Planes',
+      'study-title':    'Chalet des Planes (Megève)',
       'study-text':     'To understand the drawing tools used in architecture, I trained in Revit, SketchUp and Archicad, then carried out a personal project: reconstructing an existing chalet from reference images.<br><br>By interpreting the proportions of Chalet des Planes (offered for rent by AMA Selections), I built a complete BIM model in Archicad, before reworking it in 3ds Max — furniture modelling, environment and set design — to bring it to life through the V-Ray and Unreal Engine render engines.<br><br>A process that allowed me to master the entire chain, from survey to final image.',
       'study-link':     '→ View the original listing',
       'contact-head':   'Let\'s represent<br>your project',
