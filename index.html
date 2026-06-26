@@ -130,6 +130,16 @@
     object-fit: cover;
     display: block;
   }
+  .video-tagline {
+    max-width: 620px;
+    width: 80%;
+    margin: 34px auto 0;
+    text-align: left;
+    color: var(--gray);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.9;
+  }
   .video-fallback {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
@@ -153,7 +163,7 @@
   .about-title {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(28px, 4vw, 56px);
+    font-size: clamp(19px, 2.7vw, 37px);
     line-height: 1.02;
     letter-spacing: -1px;
     text-transform: uppercase;
@@ -402,7 +412,7 @@
   .pano-title {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(22px, 3vw, 40px);
+    font-size: clamp(15px, 2vw, 27px);
     line-height: 1.05;
     text-transform: uppercase;
     letter-spacing: -0.5px;
@@ -541,7 +551,7 @@
   .proj-intro-title {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(20px, 3.2vw, 40px);
+    font-size: clamp(14px, 2.1vw, 27px);
     line-height: 1.1;
     letter-spacing: -0.5px;
     text-transform: uppercase;
@@ -570,14 +580,14 @@
   }
   .integ-note {
     margin-top: 22px;
-    max-width: 50%;
+    width: 50%;
     min-width: 320px;
-    text-align: center;
-    color: var(--gray-dim);
-    font-size: 13px;
+    text-align: left;
+    align-self: center;
+    color: var(--gray);
+    font-size: 15px;
     font-weight: 300;
-    line-height: 1.7;
-    font-style: italic;
+    line-height: 1.9;
   }
 
   /* ============ SECTION PROJET D'ÉTUDE ============ */
@@ -596,7 +606,7 @@
   .study-title {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(28px, 4vw, 48px);
+    font-size: clamp(19px, 2.7vw, 32px);
     line-height: 1.05;
     text-transform: uppercase;
     letter-spacing: -0.5px;
@@ -653,7 +663,7 @@
     .study-images { grid-template-columns: 1fr; }
     .about { grid-template-columns: 1fr; }
     .about-photo { max-width: 300px; }
-    .integ-note { max-width: 100%; }
+    .integ-note { width: 100%; min-width: 0; }
     .proj-intro-title { white-space: normal; }
   }
 </style>
@@ -685,6 +695,7 @@
         <source src="ms-vision-intro1.mp4" type="video/mp4">
       </video>
     </div>
+    <p class="video-tagline" data-i18n="video-tagline">MS VISION réalise des images 3D et des visites virtuelles pour les architectes, promoteurs et maîtres d'ouvrage. Des rendus précis qui montrent un projet tel qu'il sera construit, dans son environnement réel.</p>
   </section>
 
   <section class="proj-intro">
@@ -728,7 +739,6 @@
   <!-- SECTION IMPLANTATION 360 -->
   <section class="pano-section">
     <div class="pano-head">
-      <p class="pano-badge" data-i18n="impl-badge">Imagerie aérienne</p>
       <h2 class="pano-title" data-i18n="impl-title">Implantation<br>aérienne 360°</h2>
     </div>
     <div class="pano-wrap" id="pano-wrap-impl">
@@ -737,7 +747,6 @@
         <div class="pano-play-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
         </div>
-        <p class="pano-play-label" data-i18n="impl-play">Visualiser l'implantation dans son contexte</p>
       </div>
       <div id="panorama-impl" class="pano-viewer" style="display:none;"></div>
       <div class="pano-controls" id="pano-controls-impl" style="display:none;">
@@ -756,7 +765,6 @@
   <!-- SECTION VISITE VIRTUELLE -->
   <section class="pano-section" id="visite-virtuelle">
     <div class="pano-head">
-      <p class="pano-badge" data-i18n="tour-badge">Visite immersive</p>
       <h2 class="pano-title" data-i18n="tour-title">Visite virtuelle<br>360°</h2>
     </div>
     <div class="pano-wrap" id="pano-wrap-tour">
@@ -765,7 +773,6 @@
         <div class="pano-play-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
         </div>
-        <p class="pano-play-label" data-i18n="tour-play">Explorer le chalet en immersif</p>
       </div>
       <div id="panorama-tour" class="pano-viewer" style="display:none;"></div>
       <div class="pano-controls" id="pano-controls-tour" style="display:none;">
@@ -791,7 +798,6 @@
   <!-- SECTION INTÉGRATION 3D -->
   <section class="pano-section">
     <div class="pano-head">
-      <p class="pano-badge" data-i18n="integ-badge">Vidéo / Interactif</p>
       <h2 class="pano-title" data-i18n="integ-title">Intégration 3D</h2>
     </div>
     <div class="pano-wrap">
@@ -807,7 +813,7 @@
   <section class="about">
     <div class="about-text">
       <h2 class="about-title" data-i18n="lead-title">Je m'appelle<br>Matthieu Salami,<br><span class="dim">artisan et créateur d'images.</span></h2>
-      <p data-i18n="lead-sub">Avec une expérience dans le bois et une formation en charpente-couverture auprès de Compagnons et MOF, je travaille l'image depuis dix ans maintenant, sur des compétences variées : de l'événementiel au montage vidéo, de la retouche photo à l'étalonnage, ou bien du drone FPV à la modélisation 3D.<br><br>MS VISION, c'est la rencontre de ces deux métiers : une connaissance réelle de la construction et des matériaux, mise au service de la représentation de vos projets. Comprendre l'ouvrage pour mieux le restituer.</p>
+      <p data-i18n="lead-sub">Avec une expérience dans le bois et en charpente-couverture auprès de Compagnons et MOF, je travaille l'image depuis dix ans maintenant, sur des compétences variées : de l'événementiel au montage vidéo, de la retouche photo à l'étalonnage, ou bien du drone FPV à la modélisation 3D.<br><br>Installé en Haute-Savoie, au cœur des Aravis, je puise dans la montagne et son architecture une véritable source d'inspiration. Connaître les ouvrages de l'intérieur — leurs matériaux, leurs essences de bois, leurs techniques de construction — me permet de représenter vos projets avec justesse et précision.<br><br>Passionné de 3D et des nouvelles technologies, je suis convaincu que l'image ne cesse d'évoluer, et que tout devient réalisable avec de la créativité. C'est là tout l'esprit de MS VISION : la rencontre du bâtiment, de l'image et d'une exigence technique toujours à la pointe, au service des plus belles représentations de vos projets.</p>
     </div>
     <div class="about-photo">
       <img src="pdp.jpg" alt="Matthieu Salami — MS VISION">
@@ -829,7 +835,7 @@
   </section>
 
   <section class="contact" id="contact">
-    <h2 class="contact-head" data-i18n="contact-head">Représentons<br>votre projet</h2>
+    <h2 class="contact-head" data-i18n="contact-head">Donnons vie<br>à votre projet</h2>
     <div class="contact-grid">
       <form id="contact-form">
         <div class="field">
@@ -850,7 +856,7 @@
       <div class="contact-aside">
         <p data-i18n="contact-aside">Vous avez un projet à représenter ? Chaque projet est singulier et mérite une image qui lui ressemble.</p>
         <p><a href="mailto:contact@msvision3d.fr">contact@msvision3d.fr</a></p>
-        <p><a href="tel:+33600000000" data-i18n="contact-phone">+33 6 71 10 93 47</a></p>
+        <p><a href="tel:+33671109347" data-i18n="contact-phone">+33 6 71 10 93 47</a></p>
       </div>
     </div>
   </section>
@@ -1018,8 +1024,9 @@
     fr: {
       'nav-contact':    'Contact',
       'lead-title':     'Je m\'appelle<br>Matthieu Salami,<br><span class="dim">artisan et créateur d\'images.</span>',
-      'lead-sub':       'Avec une expérience dans le bois et une formation en charpente-couverture auprès de Compagnons et MOF, je travaille l\'image depuis dix ans maintenant, sur des compétences variées : de l\'événementiel au montage vidéo, de la retouche photo à l\'étalonnage, ou bien du drone FPV à la modélisation 3D.<br><br>MS VISION, c\'est la rencontre de ces deux métiers : une connaissance réelle de la construction et des matériaux, mise au service de la représentation de vos projets. Comprendre l\'ouvrage pour mieux le restituer.',
-      'proj-intro-title':'Quelques<br>exemples de projections',
+      'lead-sub':       'Avec une expérience dans le bois et en charpente-couverture auprès de Compagnons et MOF, je travaille l\'image depuis dix ans maintenant, sur des compétences variées : de l\'événementiel au montage vidéo, de la retouche photo à l\'étalonnage, ou bien du drone FPV à la modélisation 3D.<br><br>Installé en Haute-Savoie, au cœur des Aravis, je puise dans la montagne et son architecture une véritable source d\'inspiration. Connaître les ouvrages de l\'intérieur — leurs matériaux, leurs essences de bois, leurs techniques de construction — me permet de représenter vos projets avec justesse et précision.<br><br>Passionné de 3D et des nouvelles technologies, je suis convaincu que l\'image ne cesse d\'évoluer, et que tout devient réalisable avec de la créativité. C\'est là tout l\'esprit de MS VISION : la rencontre du bâtiment, de l\'image et d\'une exigence technique toujours à la pointe, au service des plus belles représentations de vos projets.',
+      'video-tagline':  'MS VISION réalise des images 3D et des visites virtuelles pour les architectes, promoteurs et maîtres d\'ouvrage. Des rendus précis qui montrent un projet tel qu\'il sera construit, dans son environnement réel.',
+      'proj-intro-title':'Quelques exemples de projections',
       'proj-type-1':    'Images de perspective',
       'proj-type-2':    'Imagerie aérienne 360°',
       'proj-type-3':    'Visite virtuelle 360°',
@@ -1037,20 +1044,21 @@
       'study-title':    'Chalet des Planes (Megève)',
       'study-text':     'Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j\'ai mené un projet personnel : reconstituer un chalet existant à partir d\'images de référence.<br><br>En interprétant les proportions du Chalet des Planes (proposé à la location par AMA Selections), j\'ai réalisé une maquette BIM complète sous Archicad, avant de la retravailler sous 3ds Max — modélisation du mobilier, de l\'environnement et scénographie — pour la mettre en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m\'a permis de maîtriser l\'ensemble de la chaîne, du relevé à l\'image finale.<br><br>Vous pouvez vous servir de la <a href="#visite-virtuelle" class="study-inline-link" onclick="goToTour(event)">visite virtuelle 360°</a> pour comparer la maquette avec la réalité.',
       'study-link':     '→ Découvrir le vrai chalet en images sur AMA Selections',
-      'contact-head':   'Représentons<br>votre projet',
+      'contact-head':   'Donnons vie<br>à votre projet',
       'form-name':      'Nom',
       'form-email':     'Email',
       'form-project':   'Votre projet',
       'form-send':      'Envoyer',
       'contact-aside':  'Vous avez un projet à représenter ? Chaque projet est singulier et mérite une image qui lui ressemble.',
-      'contact-phone':  '+33 6 00 00 00 00',
+      'contact-phone':  '+33 6 71 10 93 47',
       'footer-copy':    '© 2026 MS VISION — Tous droits réservés',
     },
     en: {
       'nav-contact':    'Contact',
       'lead-title':     'My name is<br>Matthieu Salami,<br><span class="dim">craftsman and image-maker.</span>',
-      'lead-sub':       'With hands-on experience in woodwork and training in carpentry and roofing alongside Compagnons and Meilleurs Ouvriers de France, I have been working with images for ten years now, across a wide range of skills: from live events to video editing, from photo retouching to colour grading, or from FPV drone work to 3D modelling.<br><br>MS VISION is where these two trades meet: a genuine understanding of construction and materials, put to work in representing your projects. Understanding the building to better convey it.',
-      'proj-intro-title':'A few<br>examples of projections',
+      'lead-sub':       'With hands-on experience in woodwork and in carpentry and roofing alongside Compagnons and Meilleurs Ouvriers de France, I have been working with images for ten years now, across a wide range of skills: from live events to video editing, from photo retouching to colour grading, or from FPV drone work to 3D modelling.<br><br>Based in Haute-Savoie, in the heart of the Aravis mountains, I draw real inspiration from the mountains and their architecture. Knowing buildings from the inside — the materials, the species of wood, the construction techniques — allows me to represent your projects with accuracy and precision.<br><br>Passionate about 3D and emerging technologies, I believe images never stop evolving, and that anything becomes possible with creativity. That is the very spirit of MS VISION: where construction, imagery and a constantly cutting-edge technical standard meet, in service of the finest representations of your projects.',
+      'video-tagline':  'MS VISION creates 3D images and virtual tours for architects, developers and project owners. Accurate renders that show a project as it will be built, in its real environment.',
+      'proj-intro-title':'A few examples of projections',
       'proj-type-1':    'Perspective imagery',
       'proj-type-2':    'Aerial imagery 360°',
       'proj-type-3':    'Virtual tour 360°',
@@ -1068,13 +1076,13 @@
       'study-title':    'Chalet des Planes (Megève)',
       'study-text':     'To understand the drawing tools used in architecture, I trained in Revit, SketchUp and Archicad, then carried out a personal project: reconstructing an existing chalet from reference images.<br><br>By interpreting the proportions of Chalet des Planes (offered for rent by AMA Selections), I built a complete BIM model in Archicad, before reworking it in 3ds Max — furniture modelling, environment and set design — to bring it to life through the V-Ray and Unreal Engine render engines.<br><br>A process that allowed me to master the entire chain, from survey to final image.<br><br>You can use the <a href="#visite-virtuelle" class="study-inline-link" onclick="goToTour(event)">360° virtual tour</a> to compare the model with reality.',
       'study-link':     '→ Discover the real chalet in images on AMA Selections',
-      'contact-head':   'Let\'s represent<br>your project',
+      'contact-head':   'Let\'s bring<br>your project to life',
       'form-name':      'Name',
       'form-email':     'Email',
       'form-project':   'Your project',
       'form-send':      'Send',
       'contact-aside':  'Do you have a project to represent? Every project is unique and deserves an image that reflects it.',
-      'contact-phone':  '+33 6 00 00 00 00',
+      'contact-phone':  '+33 6 71 10 93 47',
       'footer-copy':    '© 2026 MS VISION — All rights reserved',
     }
   };
