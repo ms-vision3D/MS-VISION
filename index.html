@@ -131,14 +131,21 @@
     display: block;
   }
   .video-tagline {
-    max-width: 620px;
+    max-width: 760px;
     width: 80%;
-    margin: 34px auto 0;
-    text-align: left;
+    margin: 22px auto 0;
+    text-align: center;
     color: var(--gray);
     font-size: 18px;
     font-weight: 300;
     line-height: 1.9;
+  }
+  .video-tagline-lead {
+    margin-top: 40px;
+    max-width: 100%;
+    white-space: nowrap;
+    color: var(--white);
+    font-size: clamp(13px, 1.7vw, 19px);
   }
   .video-fallback {
     position: absolute; inset: 0;
@@ -243,11 +250,12 @@
   .contact-head {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(34px, 6vw, 80px);
-    line-height: 1;
-    text-transform: uppercase;
+    font-size: 34px;
+    line-height: 1.25;
+    text-transform: none;
     margin-bottom: 56px;
-    letter-spacing: -1px;
+    letter-spacing: 0;
+    color: var(--white);
   }
   .contact-grid {
     display: grid;
@@ -411,11 +419,12 @@
   }
   .pano-title {
     font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(15px, 2vw, 27px);
-    line-height: 1.05;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.2;
     text-transform: uppercase;
-    letter-spacing: -0.5px;
+    letter-spacing: 4px;
+    color: var(--gray-dim);
   }
   .pano-wrap {
     position: relative;
@@ -696,11 +705,12 @@
         <source src="ms-vision-intro1.mp4" type="video/mp4">
       </video>
     </div>
-    <p class="video-tagline" data-i18n="video-tagline">Architectes, promoteurs, constructeurs et maîtres d'ouvrage, MS VISION accompagne vos projets en image.<br><br>L'image est un outil de travail, de vente et de communication. Rien ne vaut une représentation fidèle pour défendre une idée, convaincre, et permettre à chacun de se projeter.</p>
+    <p class="video-tagline video-tagline-lead" data-i18n="video-tagline-lead">Architectes, promoteurs, constructeurs et maîtres d'ouvrage, MS VISION accompagne vos projets en image.</p>
+    <p class="video-tagline" data-i18n="video-tagline">L'image est un outil de travail, de vente et de communication. Rien ne vaut une représentation fidèle pour défendre une idée, convaincre, et permettre à chacun de se projeter.</p>
   </section>
 
   <section class="proj-intro">
-    <h2 class="proj-intro-title" data-i18n="proj-intro-title">quelques exemples de projections</h2>
+    <h2 class="proj-intro-title" data-i18n="proj-intro-title">QUELQUES EXEMPLES DE PROJECTIONS</h2>
   </section>
 
   <section class="portfolio">
@@ -826,7 +836,7 @@
     <div class="study-head">
       <p class="study-badge" data-i18n="study-badge">Projet d'étude</p>
       <h2 class="study-title" data-i18n="study-title">Chalet des Planes (Megève)</h2>
-      <p class="study-text" data-i18n="study-text">Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j'ai mené un projet personnel : reconstituer un chalet existant à partir d'images de référence.<br><br>En interprétant les proportions d'un chalet existant, j'ai réalisé une maquette BIM complète sous Archicad, avant de la retravailler sous 3ds Max (modélisation du mobilier, de l'environnement et scénographie) pour la mettre en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m'a permis de maîtriser l'ensemble de la chaîne, du relevé à l'image finale.<br><br>Vous pouvez vous servir de la <a href="#visite-virtuelle" class="study-inline-link" onclick="goToTour(event)" data-i18n="study-tour-link">visite virtuelle 360°</a> pour comparer la maquette avec la réalité.</p>
+      <p class="study-text" data-i18n="study-text">Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j'ai mené un projet personnel : reconstituer un chalet existant à partir d'images de référence.<br><br>En interprétant les proportions du Chalet Des Planes, j'ai réalisé une maquette BIM complète sous Archicad, pour ensuite la retravailler sous 3ds Max (modélisation du mobilier, de l'environnement, texturisation et scénographie),<br>afin de la représenter en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m'a permis de maîtriser l'ensemble du processus, du relevé à l'image finale.<br><br>Vous pouvez vous servir de la <a href="#visite-virtuelle" class="study-inline-link" onclick="goToTour(event)" data-i18n="study-tour-link">visite virtuelle 360°</a> pour comparer la maquette avec la réalité.</p>
       <a class="study-link" href="https://amaselections.com/france/luxury-chalet-rentals-french-alps/megeve/chalet-des-planes" target="_blank" rel="noopener" data-i18n="study-link">→ Découvrir le Chalet des Planes sur AMA Selections</a>
     </div>
     <div class="study-images">
@@ -836,7 +846,7 @@
   </section>
 
   <section class="contact" id="contact">
-    <h2 class="contact-head" data-i18n="contact-head">Donnons vie<br>à votre projet</h2>
+    <h2 class="contact-head" data-i18n="contact-head">vous portez une vision de votre projet ?<br>mettons-la en lumière</h2>
     <div class="contact-grid">
       <form id="contact-form">
         <div class="field">
@@ -1026,8 +1036,9 @@
       'nav-contact':    'Contact',
       'lead-title':     'Je m\'appelle<br>Matthieu Salami,<br><span class="dim">artisan et créateur d\'images.</span>',
       'lead-sub':       'Avec une expérience dans le bois et en charpente-couverture auprès de Compagnons et formé par un MOF, je travaille en parallèle l\'image depuis maintenant dix ans, sur des compétences variées, de l\'événementiel au montage vidéo, de la retouche photo à l\'étalonnage, ou bien du drone FPV à la modélisation 3D.<br><br>Implanté en Haute-Savoie, au cœur des Aravis, je puise dans la montagne et son architecture une véritable source d\'inspiration. Directement entouré de ce qui m\'inspire, je sais en refléter l\'atmosphère et restituer l\'ambiance qui se dégage d\'un lieu.<br><br>Le monde de la 3D ne cesse d\'évoluer. Mon ambition est de m\'appuyer sur les technologies les plus récentes pour allier technicité et créativité, et accompagner vos projets de façon qualitative et percutante. MS VISION, c\'est la rencontre de mes deux savoir-faire, au service d\'un seul objectif : vous offrir le travail le plus qualitatif possible.',
-      'video-tagline':  'Architectes, promoteurs, constructeurs et maîtres d\'ouvrage, MS VISION accompagne vos projets en image.<br><br>L\'image est un outil de travail, de vente et de communication. Rien ne vaut une représentation fidèle pour défendre une idée, convaincre, et permettre à chacun de se projeter.',
-      'proj-intro-title':'quelques exemples de projections',
+      'video-tagline-lead':'Architectes, promoteurs, constructeurs et maîtres d\'ouvrage, MS VISION accompagne vos projets en image.',
+      'video-tagline':  'L\'image est un outil de travail, de vente et de communication. Rien ne vaut une représentation fidèle pour défendre une idée, convaincre, et permettre à chacun de se projeter.',
+      'proj-intro-title':'QUELQUES EXEMPLES DE PROJECTIONS',
       'proj-type-1':    'Images de perspective',
       'proj-type-2':    'Imagerie aérienne 360°',
       'proj-type-3':    'Visite virtuelle 360°',
@@ -1043,14 +1054,14 @@
       'integ-note':     'D\'autres variantes de projections sont possibles, tels que les plans d\'étage ou les visites virtuelles interactives.',
       'study-badge':    'Projet d\'étude',
       'study-title':    'Chalet des Planes (Megève)',
-      'study-text':     'Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j\'ai mené un projet personnel : reconstituer un chalet existant à partir d\'images de référence.<br><br>En interprétant les proportions d\'un chalet existant, j\'ai réalisé une maquette BIM complète sous Archicad, avant de la retravailler sous 3ds Max (modélisation du mobilier, de l\'environnement et scénographie) pour la mettre en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m\'a permis de maîtriser l\'ensemble de la chaîne, du relevé à l\'image finale.<br><br>Vous pouvez vous servir de la <a href="#visite-virtuelle" class="study-inline-link" onclick="goToTour(event)">visite virtuelle 360°</a> pour comparer la maquette avec la réalité.',
+      'study-text':     'Pour comprendre les outils de dessin utilisés en architecture, je me suis formé à Revit, SketchUp et Archicad, puis j\'ai mené un projet personnel : reconstituer un chalet existant à partir d\'images de référence.<br><br>En interprétant les proportions du Chalet Des Planes, j\'ai réalisé une maquette BIM complète sous Archicad, pour ensuite la retravailler sous 3ds Max (modélisation du mobilier, de l\'environnement, texturisation et scénographie),<br>afin de la représenter en image grâce aux moteurs de rendu V-Ray et Unreal Engine.<br><br>Une démarche qui m\'a permis de maîtriser l\'ensemble du processus, du relevé à l\'image finale.<br><br>Vous pouvez vous servir de la <a href="#visite-virtuelle" class="study-inline-link" onclick="goToTour(event)">visite virtuelle 360°</a> pour comparer la maquette avec la réalité.',
       'study-link':     '→ Découvrir le Chalet des Planes sur AMA Selections',
-      'contact-head':   'Donnons vie<br>à votre projet',
+      'contact-head':   'vous portez une vision de votre projet ?<br>mettons-la en lumière',
       'form-name':      'Nom',
       'form-email':     'Email',
       'form-project':   'Votre projet',
       'form-send':      'Envoyer',
-      'contact-aside':  'vous portez une vision de votre projet ? mettons la en lumière',
+      'contact-aside':  'Vous avez un projet à représenter ? Chaque projet est singulier et mérite une image qui lui ressemble.',
       'contact-phone':  '+33 6 71 10 93 47',
       'footer-copy':    '© 2026 MS VISION — Tous droits réservés',
     },
@@ -1058,8 +1069,9 @@
       'nav-contact':    'Contact',
       'lead-title':     'My name is<br>Matthieu Salami,<br><span class="dim">craftsman and image-maker.</span>',
       'lead-sub':       'With hands-on experience in woodwork and in carpentry and roofing alongside Compagnons, and trained by a Meilleur Ouvrier de France, I have also been working with images for ten years now, across a wide range of skills: from live events to video editing, from photo retouching to colour grading, or from FPV drone work to 3D modelling.<br><br>Based in Haute-Savoie, in the heart of the Aravis mountains, I draw real inspiration from the mountains and their architecture. Surrounded by what inspires me, I know how to reflect its atmosphere and capture the mood of a place.<br><br>The world of 3D never stops evolving. My ambition is to rely on the very latest technologies to combine technical skill and creativity, and to support your projects in a way that is both high-quality and striking. MS VISION is where my two areas of expertise meet, with a single goal: to offer you the highest-quality work possible.',
-      'video-tagline':  'Architects, developers, builders and project owners, MS VISION supports your projects through images.<br><br>The image is a tool for work, for selling and for communication. Nothing conveys an idea better than a faithful representation: to defend it, to convince, and to let everyone picture the result.',
-      'proj-intro-title':'a few examples of projections',
+      'video-tagline-lead':'Architects, developers, builders and project owners, MS VISION supports your projects through images.',
+      'video-tagline':  'The image is a tool for work, for selling and for communication. Nothing conveys an idea better than a faithful representation: to defend it, to convince, and to let everyone picture the result.',
+      'proj-intro-title':'A FEW EXAMPLES OF PROJECTIONS',
       'proj-type-1':    'Perspective imagery',
       'proj-type-2':    'Aerial imagery 360°',
       'proj-type-3':    'Virtual tour 360°',
@@ -1075,14 +1087,14 @@
       'integ-note':     'Other types of projections are available, such as floor plans or interactive virtual tours.',
       'study-badge':    'Study project',
       'study-title':    'Chalet des Planes (Megève)',
-      'study-text':     'To understand the drawing tools used in architecture, I trained in Revit, SketchUp and Archicad, then carried out a personal project: reconstructing an existing chalet from reference images.<br><br>By interpreting the proportions of an existing chalet, I built a complete BIM model in Archicad, before reworking it in 3ds Max (furniture modelling, environment and set design) to bring it to life through the V-Ray and Unreal Engine render engines.<br><br>A process that allowed me to master the entire chain, from survey to final image.<br><br>You can use the <a href="#visite-virtuelle" class="study-inline-link" onclick="goToTour(event)">360° virtual tour</a> to compare the model with reality.',
+      'study-text':     'To understand the drawing tools used in architecture, I trained in Revit, SketchUp and Archicad, then carried out a personal project: reconstructing an existing chalet from reference images.<br><br>By interpreting the proportions of Chalet Des Planes, I built a complete BIM model in Archicad, then reworked it in 3ds Max (furniture modelling, environment, texturing and set design),<br>to bring it to life through the V-Ray and Unreal Engine render engines.<br><br>A process that allowed me to master the entire workflow, from survey to final image.<br><br>You can use the <a href="#visite-virtuelle" class="study-inline-link" onclick="goToTour(event)">360° virtual tour</a> to compare the model with reality.',
       'study-link':     '→ Discover Chalet des Planes on AMA Selections',
-      'contact-head':   'Let\'s bring<br>your project to life',
+      'contact-head':   'you have a vision for your project ?<br>let us bring it to light',
       'form-name':      'Name',
       'form-email':     'Email',
       'form-project':   'Your project',
       'form-send':      'Send',
-      'contact-aside':  'Do you have a vision for your project? Let’s highlight it.',
+      'contact-aside':  'Do you have a project to represent? Every project is unique and deserves an image that reflects it.',
       'contact-phone':  '+33 6 71 10 93 47',
       'footer-copy':    '© 2026 MS VISION — All rights reserved',
     }
