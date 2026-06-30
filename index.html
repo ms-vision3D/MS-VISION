@@ -1007,13 +1007,13 @@
     var video = document.getElementById('intro-video');
     var bandVideo = document.getElementById('band-video');
     var revealed = false;
+    var started = false;
     function revealSite() {
       if (revealed) return;
       revealed = true;
       document.getElementById('intro').classList.add('done');
       document.getElementById('navbar').classList.add('show');
       document.getElementById('content').classList.add('show');
-      // Lance la vidéo du bandeau depuis le début, à la fin de l'intro
       if (bandVideo) {
         try {
           bandVideo.currentTime = 0;
@@ -1022,19 +1022,35 @@
         } catch (e) {}
       }
     }
-    if (video) {
-      // Force le démarrage auto (mobile inclus) : muted + playsinline obligatoires
+    function tryPlayIntro() {
+      if (started || !video) return;
+      started = true; // marqué tout de suite pour éviter un 2e lancement
       video.muted = true;
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
       var pv = video.play();
-      if (pv && pv.catch) pv.catch(function () {
-        // Si le navigateur bloque encore, on révèle le site directement
-        revealSite();
-      });
+      if (pv && pv.catch) {
+        pv.catch(function () {
+          // bloqué : on autorise une nouvelle tentative au prochain contact
+          started = false;
+        });
+      }
+    }
+    if (video) {
       video.addEventListener('ended', revealSite);
-      // Fallback si la vidéo d'intro ne charge pas
-      setTimeout(revealSite, 8000);
+      tryPlayIntro();
+      // Si le navigateur bloque l'autoplay (iOS), lance au 1er contact
+      var kick = function () {
+        if (started) return;
+        if (video.currentTime > 0 || !video.paused) { started = true; return; }
+        tryPlayIntro();
+      };
+      ['touchstart', 'pointerdown', 'click', 'scroll', 'keydown'].forEach(function (ev) {
+        window.addEventListener(ev, kick, { once: false, passive: true });
+      });
+      // Filet de sécurité : ne jamais rester bloqué
+      setTimeout(revealSite, 9000);
     } else {
       setTimeout(revealSite, 1000);
     }
