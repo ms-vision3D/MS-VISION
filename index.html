@@ -962,9 +962,13 @@
     lb.classList.add('open');
 
     // Calcul de la position plein écran (en gardant le ratio, max 92%)
-    requestAnimationFrame(function () {
+    function expand() {
       img.style.transition = '';
       var nw = img.naturalWidth, nh = img.naturalHeight;
+      if (!nw || !nh) {
+        // dimensions pas encore connues : on prend le ratio de la vignette
+        nw = rect.width; nh = rect.height;
+      }
       var maxW = window.innerWidth * 0.92, maxH = window.innerHeight * 0.92;
       var scale = Math.min(maxW / nw, maxH / nh);
       var fw = nw * scale, fh = nh * scale;
@@ -972,7 +976,16 @@
       img.style.left = (window.innerWidth - fw) / 2 + 'px';
       img.style.width = fw + 'px';
       img.style.height = fh + 'px';
-    });
+    }
+    // Si l'image est déjà chargée, on agrandit au prochain frame ;
+    // sinon on attend son chargement (cas mobile)
+    if (img.complete && img.naturalWidth) {
+      requestAnimationFrame(expand);
+    } else {
+      img.onload = function () { requestAnimationFrame(expand); };
+      // filet de sécurité si onload ne se déclenche pas
+      setTimeout(function () { if (lbState.open) expand(); }, 120);
+    }
 
     lbState.open = true;
     lbState.el = el;
